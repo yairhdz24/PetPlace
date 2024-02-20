@@ -30,7 +30,7 @@ const Sidebar = (props) => {
                         <h1 className='text-xl font-Lilita_One text-alitas_red uppercase text-center'>{"alitas"} <br /> {"le bro"}</h1>
                     </li>
                     <li className={`bg-${activeTab === '/' ? 'alitas_obs_red' : 'alitas_obs_beige'} p-4 mb-2 rounded-tl-xl rounded-bl-xl group transition-colors`}>
-                    <Link to='/' className={`group-hover:bg-alitas_obs_red p-4 flex justify-center rounded-xl group-hover:text-white transition-colors ${activeTab === '/' ? 'text-white' : 'text-alitas_obs_red'}`} onClick={() => handleSetActiveTab('/')}>
+                        <Link to='/' className={`group-hover:bg-alitas_obs_red p-4 flex justify-center rounded-xl group-hover:text-white transition-colors ${activeTab === '/' ? 'text-white' : 'text-alitas_obs_red'}`} onClick={() => handleSetActiveTab('/')}>
                             <RiRestaurantFill className='text-2xl' />
                         </Link>
                     </li>
