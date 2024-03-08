@@ -2,7 +2,7 @@ const pool = require("../db/db");
 
 const getAllClientes = async (req, res) => {
   try {
-    const results = await pool.query("SELECT * FROM clientes");
+    const results = await pool.query("SELECT * FROM cliente");
     res.json(results.rows);
   } catch (error) {
     console.error("Error al obtener clientes:", error.message);
@@ -34,7 +34,7 @@ const createCliente = async (req, res) => {
     const {nombre, telefono } = req.body;
 
     const result = await pool.query(
-      "INSERT INTO clientes (nombre, telefono) VALUES ($1, $2) RETURNING *",
+      "INSERT INTO cliente (nombre, telefono) VALUES ($1, $2) RETURNING *",
       [ nombre, telefono]
     );
 
@@ -65,7 +65,7 @@ const updateCliente = async (req, res) => {
     values.push(id);
 
     // Construir la consulta SQL con la cláusula SET dinámica
-    const query = `UPDATE clientes SET ${setClauses} WHERE id_cliente = $${values.length} RETURNING *`;
+    const query = `UPDATE cliente SET ${setClauses} WHERE id_cliente = $${values.length} RETURNING *`;
 
     // Ejecutar la consulta
     const updatedClient = await pool.query(query, values);

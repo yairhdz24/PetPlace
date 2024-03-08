@@ -6,7 +6,7 @@ const addProducto = async (req, res) => {
     const { nombre, precio, descripcionproducto} = req.body;
 
     const results = await pool.query(
-      "INSERT INTO Productos (Nombre, Precio) VALUES ($1, $2, $3) RETURNING *",
+      "INSERT INTO producto (Nombre, Precio) VALUES ($1, $2, $3) RETURNING *",
       [nombre, precio, descripcionproducto] 
     );
 
@@ -21,7 +21,7 @@ const addProducto = async (req, res) => {
 const getAllProductos = async (req, res) => {
   // Ruta para obtener todos los productos
   try {
-    const results = await pool.query("SELECT * FROM Productos");
+    const results = await pool.query("SELECT * FROM producto");
     res.json(results.rows);
   } catch (error) {
     console.error(error.message);
@@ -34,7 +34,7 @@ const getProductoById = async (req, res) => {
   try {
     const { id } = req.params;
     const results = await pool.query(
-      "SELECT * FROM Productos WHERE ID_Producto = $1",
+      "SELECT * FROM producto WHERE ID_Producto = $1",
       [id]
     );
 

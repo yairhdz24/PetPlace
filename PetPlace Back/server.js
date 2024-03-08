@@ -14,6 +14,8 @@ app.use("/productos", productosRoutes);
 app.use("/clientes", clientesRoutes);
 app.use("/pedidos", pedidosRoutes);
 app.use("/historial", HistorialPedidos);
+app.use("/cliente", HistorialPedidos);
+
 
 const port = process.env.PORT || 3001;
 

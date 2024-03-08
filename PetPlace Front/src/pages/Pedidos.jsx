@@ -42,7 +42,7 @@ const Pedidos = () => {
 
       if (response.ok) {
         console.log('Pedido modificado exitosamente');
-        // Actualizar el estado local
+        // Actualizar el estado locald
         const nuevosPedidos = [...pedidos];
         const pedidoModificadoIndex = nuevosPedidos.findIndex((pedido) => pedido.id_pedido === selectedPedidoId);
         nuevosPedidos[pedidoModificadoIndex].estado = estado;
