@@ -7,10 +7,10 @@ export default {
     './components/**/*.{html,js}',
   ],
   theme: {
-
     extend:{
       fontFamily: {
-        'Lilita_One': ['"Lilita One"', 'sans-serif']
+        'Lilita_One': ['"Lilita One"', 'sans-serif'],
+        'Poppins': ['Poppins', 'sans-serif']
       },
       colors: {
         alitas_beige: '#fefbe8',

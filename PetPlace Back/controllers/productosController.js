@@ -34,7 +34,7 @@ const getProductoById = async (req, res) => {
   try {
     const { id } = req.params;
     const results = await pool.query(
-      "SELECT * FROM Productos WHERE ID_Producto = $1",
+      "SELECT * FROM producto WHERE ID_Producto = $1",
       [id]
     );
 
@@ -70,7 +70,7 @@ const updateProducto = async (req, res) => {
 
     const updateQuery = {
       text:
-        "UPDATE Productos SET " +
+        "UPDATE producto SET " +
         Object.keys(updateFields)
           .map((key, index) => `${key} = $${index + 1}`)
           .join(", ") +
@@ -133,4 +133,3 @@ module.exports = {
   deleteProducto,
 };
 
-//funcionando con exito

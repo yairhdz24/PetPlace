@@ -2,7 +2,7 @@ const pool = require("../db/db");
 
 const getAllClientes = async (req, res) => {
   try {
-    const results = await pool.query("SELECT * FROM clientes");
+    const results = await pool.query("SELECT * FROM Clientes");
     res.json(results.rows);
   } catch (error) {
     console.error("Error al obtener clientes:", error.message);
@@ -14,7 +14,7 @@ const getClientesId = async (req, res) => {
   try {
     const { id } = req.params;
     const results = await pool.query(
-      "SELECT * FROM clientes WHERE id_cliente = $1",
+      "SELECT * FROM clientes WHERE ID_Cliente = $1",
       [id]
     );
 
@@ -52,11 +52,9 @@ const updateCliente = async (req, res) => {
 
   try {
     if (Object.keys(updateFields).length === 0) {
-      // No se proporcionaron campos para actualizar
       return res.status(400).json({ error: "Ningún campo proporcionado para actualizar" });
     }
 
-    // Construir dinámicamente la cláusula SET y los valores
     const setClauses = Object.keys(updateFields)
       .map((key, index) => `${key} = $${index + 1}`)
       .join(", ");
@@ -64,8 +62,8 @@ const updateCliente = async (req, res) => {
     const values = Object.values(updateFields);
     values.push(id);
 
-    // Construir la consulta SQL con la cláusula SET dinámica
-    const query = `UPDATE clientes SET ${setClauses} WHERE id_cliente = $${values.length} RETURNING *`;
+   
+    const query = `UPDATE clientes SET ${setClauses} WHERE ID_Cliente = $${values.length} RETURNING *`;
 
     // Ejecutar la consulta
     const updatedClient = await pool.query(query, values);
@@ -86,7 +84,7 @@ const deleteCliente = async (req, res) => {
 
   try {
     const deletedClient = await pool.query(
-      "DELETE FROM clientes WHERE id_cliente = $1 RETURNING *",
+      "DELETE FROM clientes WHERE ID_Cliente = $1 RETURNING *",
       [id]
     );
 
