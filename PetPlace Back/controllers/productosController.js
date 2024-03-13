@@ -6,7 +6,7 @@ const addProducto = async (req, res) => {
     const { nombre, precio, descripcionproducto} = req.body;
 
     const results = await pool.query(
-      "INSERT INTO producto (Nombre, Precio) VALUES ($1, $2, $3) RETURNING *",
+      "INSERT INTO Productos (Nombre, Precio) VALUES ($1, $2, $3) RETURNING *",
       [nombre, precio, descripcionproducto] 
     );
 
@@ -21,7 +21,7 @@ const addProducto = async (req, res) => {
 const getAllProductos = async (req, res) => {
   // Ruta para obtener todos los productos
   try {
-    const results = await pool.query("SELECT * FROM producto");
+    const results = await pool.query("SELECT * FROM Productos");
     res.json(results.rows);
   } catch (error) {
     console.error(error.message);
@@ -70,7 +70,7 @@ const updateProducto = async (req, res) => {
 
     const updateQuery = {
       text:
-        "UPDATE Productos SET " +
+        "UPDATE producto SET " +
         Object.keys(updateFields)
           .map((key, index) => `${key} = $${index + 1}`)
           .join(", ") +
@@ -133,4 +133,3 @@ module.exports = {
   deleteProducto,
 };
 
-//funcionando con exito
