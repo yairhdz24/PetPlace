@@ -133,7 +133,7 @@ const HomePage = () => {
                 <Card
                   key={producto.id_producto}
                   img={getImageForProduct(producto.id_producto)}
-                  description={producto.descripcionproducto}
+                  description={producto.nombre}
                   price={producto.precio}
                   id={producto.id_producto}
                   addToCart={addToCart}
