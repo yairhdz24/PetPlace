@@ -8,13 +8,19 @@ import Header from "../components/shared/Header";
 import { Fotter } from "../components/Fotter";
 
 // Imágenes
-import Alitas12Image from '../images/Alitas12.jpg';
-import Alitas8Image from '../images/Alitas8.jpg';
-import BonelessImage from '../images/Boneles.jpg';
-import FrancesaImage from '../images/Francesas.jpg';
-import GajoImage from '../images/Gajo.jpg';
-import Dedos from '../images/ddos.jpg';
+
 import DefaultImage from '../images/default.jpg';
+import Perro_Comida from '../images/Perro_Comida.png';
+import Gato_Comida from '../images/Gato_Comida.jpg';
+import Juguete_Perro from '../images/Juguete_Perro.jpg';
+import Juguete_Gato from '../images/Juguete_Gato.jpg';
+import Collar_Perro from '../images/CollarPerro.jpeg';
+import Collar_Gato from '../images/CollarGato.jpeg';
+import Correa_Perro from '../images/CorreaPerro.jpeg';
+import Rascador_Gato from '../images/RascadorGato.jpeg';
+import Cama_Perro from '../images/CamaPerro.jpeg';
+import Cama_Gato from '../images/CamaGato.jpg';
+
 
 const HomePage = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -24,13 +30,19 @@ const HomePage = () => {
 
   // Define el objeto de mapeo para las imágenes utilizando la ID del producto
   const imageMapping = {
-    7: Alitas12Image,
-    8: BonelessImage,
-    9: Dedos,
-    10: FrancesaImage,
-    11: GajoImage,
-    5: Alitas8Image,
+   
     29: DefaultImage, // No hay imagen específica, usa la predeterminada
+    1: Perro_Comida,
+    2: Gato_Comida,
+    3: Juguete_Perro,
+    4: Juguete_Gato,
+    5: Collar_Perro,
+    6: Collar_Gato,
+    7: Correa_Perro,
+    8: Rascador_Gato,
+    9: Cama_Perro,
+    10: Cama_Gato,
+    
   };
 
   useEffect(() => {
