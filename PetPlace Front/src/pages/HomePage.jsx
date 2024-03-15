@@ -102,7 +102,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className='bg-alitas_obs_beige w-full min-h-screen'>
+      <div className='bg-gray-100 w-full min-h-screen'>
       <Sidebar showMenu={showMenu} />
       <Car
         showOrder={showOrder}
@@ -134,7 +134,7 @@ const HomePage = () => {
           <Header />
 
           <div className="flex item-center justify-between mb-16">
-            <h2 className="text-3xl font-Lilita_One text-alitas_obs_red">Inserte alimentos a la orden</h2>
+            <h2 className="text-3xl font-Lilita_One text-blue-400">Inserte los productos que desea</h2>
           </div>
 
           {/* Contenido del backend PRODUCTOS */}

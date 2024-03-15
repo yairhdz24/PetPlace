@@ -14,38 +14,42 @@ const Sidebar = (props) => {
         setActiveTab(location.pathname);
     }, [location.pathname]);
 
+    const handleSetActiveTab = (tab) => {
+        setActiveTab(tab);
+    };
+
     return (
         <div
-            className={`bg-alitas_beige fixed lg:left-0 top-0 w-28 h-full flex flex-col justify-between py-4 rounded-tr-xl rounded-br-xl
+            className={`bg-yellow-400 fixed lg:left-0 top-0 w-28 h-full flex flex-col justify-between py-4 rounded-tr-xl rounded-br-xl
                                                                         z-50 transition-all ${showMenu ? "left-0" : "-left-full"}`}
         >
             <div>
                 <ul className='pl-4'>
                     <li>
-                        <img
+                        {/* <img
                             src="splash1.png"
                             alt="Alitas"
                             className="h-full w-full pt-3 pl-3 pr-3"
-                        />
-                        <h1 className='text-xl font-Lilita_One text-alitas_red uppercase text-center'>{"alitas"} <br /> {"le bro"}</h1>
+                        /> */}
+                        <h1 className='text-xl font-Lilita_One text-blue-400 uppercase text-center'>{"PEt"} <br /> {"Place"}</h1>
                     </li>
-                    <li className={`bg-${activeTab === '/' ? 'alitas_obs_red' : 'alitas_obs_beige'} p-4 mb-2 rounded-tl-xl rounded-bl-xl group transition-colors`}>
-                        <Link to='/' className={`group-hover:bg-alitas_obs_red p-4 flex justify-center rounded-xl group-hover:text-white transition-colors ${activeTab === '/' ? 'text-white' : 'text-alitas_obs_red'}`} onClick={() => handleSetActiveTab('/')}>
+                    <li className={`bg-gray-100 p-4 mb-2 rounded-tl-xl rounded-bl-xl group transition-colors ${activeTab === '/' ? 'bg-purple-400' : ''}`}>
+                        <Link to='/' className={`group-hover:bg-purple-400 p-4 flex justify-center rounded-xl group-hover:text-white transition-colors ${activeTab === '/' ? 'text-white' : 'text-purple-400'}`} onClick={() => handleSetActiveTab('/')}>
                             <RiRestaurantFill className='text-2xl' />
                         </Link>
                     </li>
-                    <li className={`bg-${activeTab === '/pedidos' ? 'alitas_obs_red' : 'alitas_obs_beige'} p-4 mb-2 rounded-tl-xl rounded-bl-xl group transition-colors`}>
-                        <Link to='/pedidos' className={`group-hover:bg-alitas_obs_red p-4 flex justify-center rounded-xl group-hover:text-white transition-colors ${activeTab === '/pedidos' ? 'text-white' : 'text-alitas_obs_red'}`} onClick={() => handleSetActiveTab('/pedidos')}>
+                    <li className={`bg-gray-100 p-4 mb-2 rounded-tl-xl rounded-bl-xl group transition-colors ${activeTab === '/pedidos' ? 'bg-purple-400' : ''}`}>
+                        <Link to='/pedidos' className={`group-hover:bg-purple-400 p-4 flex justify-center rounded-xl group-hover:text-white transition-colors ${activeTab === '/pedidos' ? 'text-white' : 'text-purple-400'}`} onClick={() => handleSetActiveTab('/pedidos')}>
                             <RiFileList3Fill className='text-2xl' />
                         </Link>
                     </li>
-                    <li className={`bg-${activeTab === '/clientes' ? 'alitas_obs_red' : 'alitas_obs_beige'} p-4 mb-2 rounded-tl-xl rounded-bl-xl group transition-colors`}>
-                        <Link to='/clientes' className={`group-hover:bg-alitas_obs_red p-4 flex justify-center rounded-xl group-hover:text-white transition-colors ${activeTab === '/clientes' ? 'text-white' : 'text-alitas_obs_red'}`} onClick={() => handleSetActiveTab('/pedidos')}>
+                    <li className={`bg-gray-100 p-4 mb-2 rounded-tl-xl rounded-bl-xl group transition-colors ${activeTab === '/clientes' ? 'bg-purple-400' : ''}`}>
+                        <Link to='/clientes' className={`group-hover:bg-purple-400 p-4 flex justify-center rounded-xl group-hover:text-white transition-colors ${activeTab === '/clientes' ? 'text-white' : 'text-purple-400'}`} onClick={() => handleSetActiveTab('/clientes')}>
                             <RiContactsBook2Fill className='text-2xl' />
                         </Link>
                     </li>
-                    <li className={`bg-${activeTab === '/historialpedidos' ? 'alitas_obs_red' : 'alitas_obs_beige'} p-4 mb-2 rounded-tl-xl rounded-bl-xl group transition-colors`}>
-                        <Link to='/historialpedidos' className={`group-hover:bg-alitas_obs_red p-4 flex justify-center rounded-xl group-hover:text-white transition-colors ${activeTab === '/historialpedidos' ? 'text-white' : 'text-alitas_obs_red'}`} onClick={() => handleSetActiveTab('/historialpedidos')}>
+                    <li className={`bg-gray-100 p-4 mb-2 rounded-tl-xl rounded-bl-xl group transition-colors ${activeTab === '/historialpedidos' ? 'bg-purple-400' : ''}`}>
+                        <Link to='/historialpedidos' className={`group-hover:bg-purple-400 p-4 flex justify-center rounded-xl group-hover:text-white transition-colors ${activeTab === '/historialpedidos' ? 'text-white' : 'text-purple-400'}`} onClick={() => handleSetActiveTab('/historialpedidos')}>
                             <RiHistoryFill className='text-2xl' />
                         </Link>
                     </li>

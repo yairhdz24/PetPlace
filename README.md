@@ -27,7 +27,7 @@
 ## Autores 📝
 
 - Yair Hernandez ([@yairhdz24](https://github.com/yairhdz24))
-- Yezael Gomez ([@username](https://github.com/username))
+- Yezael Gomez ([@TheGrayish](https://github.com/TheGrayish))
 - Judith Villalvazo ([@username](https://github.com/username))
 
 

@@ -8,7 +8,7 @@ export const Fotter = () => {
                     <img className="w-auto h-7" src="https://merakiui.com/images/full-logo.svg" alt="" />
                 </a> */}
 
-                <p className="text-center text-sm text-black">© Alitas Lebro Todos los derechos reservados.</p>
+                <p className="text-center text-sm text-black">© PETPLACE Todos los derechos reservados.</p>
             </div>
         </footer>
     );
