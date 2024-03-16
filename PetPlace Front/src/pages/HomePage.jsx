@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { RiMenu3Fill, RiAddFill, RiFileList3Fill, RiCloseLine } from "react-icons/ri";
-import Sidebar from '../components/shared/Sidebar';
-import Car from "../components/shared/Car";
-import Card from "../components/shared/Card";
-import Header from "../components/shared/Header";
+import Sidebar from '../components/Sidebar';
+import Car from "../components/Car";
+import Card from "../components/Card";
+import Header from "../components/Header";
 import { Fotter } from "../components/Fotter";
+import { Skeleton } from "../components/Skeleton";
 
 // Imágenes
 
@@ -30,7 +31,7 @@ const HomePage = () => {
 
   // Define el objeto de mapeo para las imágenes utilizando la ID del producto
   const imageMapping = {
-   
+
     29: DefaultImage, // No hay imagen específica, usa la predeterminada
     1: Perro_Comida,
     2: Gato_Comida,
@@ -42,7 +43,7 @@ const HomePage = () => {
     8: Rascador_Gato,
     9: Cama_Perro,
     10: Cama_Gato,
-    
+
   };
 
   useEffect(() => {
@@ -102,7 +103,7 @@ const HomePage = () => {
   };
 
   return (
-      <div className='bg-gray-100 w-full min-h-screen'>
+    <div className='bg-gray-100 w-full min-h-screen'>
       <Sidebar showMenu={showMenu} />
       <Car
         showOrder={showOrder}
@@ -111,21 +112,7 @@ const HomePage = () => {
         removeFromCart={removeFromCart}
         total={calculateTotal()}
       />
-      {/* NAV de móvil */}
-      <nav className="bg-alitas_beige lg:hidden fixed w-full bottom-0 left-0 text-3xl text-alitas_obs_red p-4 flex items-center justify-between rounded-tl-xl rounded-tr-xl">
-        <button className="p-2">
-          <RiCloseLine />
-        </button>
-        <button className="p-2">
-          <RiAddFill />
-        </button>
-        <button onClick={orders} className="p-2">
-          <RiFileList3Fill />
-        </button>
-        <button onClick={menu} className="p-2">
-          {showMenu ? <RiCloseLine /> : <RiMenu3Fill />}
-        </button>
-      </nav>
+
 
       {/* Main */}
       <main className="lg:pl-32 lg:pr-96 pb-20">
@@ -140,27 +127,26 @@ const HomePage = () => {
           {/* Contenido del backend PRODUCTOS */}
           <div className="p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
             {/* Mapear sobre la lista de productos desde la base de datos */}
-            {productos.length > 0 ? (
-              productos.map((producto) => (
-                <Card
-                  key={producto.id_producto}
-                  img={getImageForProduct(producto.id_producto)}
-                  description={producto.nombre}
-                  price={producto.precio}
-                  id={producto.id_producto}
-                  addToCart={addToCart}
-                />
-              ))
-            ) : (
-              <h2 className="text-3xl font-Lilita_One text-alitas_obs_red">
-                Error al cargar productos. Por favor, inténtalo de nuevo más tarde.
-              </h2>
-            )}
+            {(productos.length > 0 ? productos : Array.from({ length: 9 })).map((producto, index) => (
+              <div key={index} className="w-full">
+                {producto ? (
+                  <Card
+                    img={getImageForProduct(producto.id_producto)}
+                    description={producto.nombre}
+                    price={producto.precio}
+                    id={producto.id_producto}
+                    addToCart={addToCart}
+                  />
+                ) : (
+                  <Skeleton />
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </main>
       {/* Pie de página */}
-      <Fotter/>
+      <Fotter />
     </div>
   );
 }
