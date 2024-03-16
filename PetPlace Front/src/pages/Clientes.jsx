@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Sidebar from '../components/shared/Sidebar';
+import Sidebar from '../components/Sidebar';
 import {
   RiCloseLine,
   RiAddFill,
