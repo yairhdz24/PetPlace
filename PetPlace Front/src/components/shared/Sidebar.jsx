@@ -20,7 +20,7 @@ const Sidebar = (props) => {
 
     return (
         <div
-            className={`bg-yellow-400 fixed lg:left-0 top-0 w-28 h-full flex flex-col justify-between py-4 rounded-tr-xl rounded-br-xl
+            className={`bg-purple-600 fixed lg:left-0 top-0 w-28 h-full flex flex-col justify-between py-4 rounded-tr-xl rounded-br-xl
                                                                         z-50 transition-all ${showMenu ? "left-0" : "-left-full"}`}
         >
             <div>
@@ -31,7 +31,7 @@ const Sidebar = (props) => {
                             alt="Alitas"
                             className="h-full w-full pt-3 pl-3 pr-3"
                         /> */}
-                        <h1 className='text-xl font-Lilita_One text-blue-400 uppercase text-center'>{"PEt"} <br /> {"Place"}</h1>
+                        <h1 className='text-xl font-Lilita_One text-white uppercase text-center'>{"PEt"} <br /> {"Place"}</h1>
                     </li>
                     <li className={`bg-gray-100 p-4 mb-2 rounded-tl-xl rounded-bl-xl group transition-colors ${activeTab === '/' ? 'bg-purple-400' : ''}`}>
                         <Link to='/' className={`group-hover:bg-purple-400 p-4 flex justify-center rounded-xl group-hover:text-white transition-colors ${activeTab === '/' ? 'text-white' : 'text-purple-400'}`} onClick={() => handleSetActiveTab('/')}>

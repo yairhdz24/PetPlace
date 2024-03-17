@@ -82,19 +82,19 @@ const Car = (props) => {
   return (
     <>
       <div
-        className={`lg:col-span-2 bg-blue-100 fixed top-0 w-full h-full lg:right-0 lg:w-96 transition-all z-50 ${showOrder ? "right-0" : "-right-full"
+        className={`lg:col-span-2 bg-white fixed top-0 w-full h-full lg:right-0 lg:w-96 transition-all z-50 ${showOrder ? "right-0" : "-right-full"
           }`}
       >
-        <div className="relative h-full pt-16 p-8 lg:pt-8 text-purple-500">
+        <div className="relative h-full pt-16 p-8 lg:pt-8 text-white">
           <RiCloseLine
             onClick={() => setShowOrder(false)}
-            className="lg:hidden absolute left-4 top-4 p-3 box-content text-purple-400 bg-yellow-400 rounded-full text-2xl"
+            className="lg:hidden absolute left-4 top-4 p-3 box-content text-black bg-purple-400 rounded-full text-2xl"
           />
           <h1 className="text-2xl mt-4 text-purple-400">Orden #{numeroOrden}</h1>
           <form className="flex items-center gap-2 flex-wrap mt-4 mb-8">
             <h1 className="text-xl text-blue-400">Cliente:</h1>
             <select
-              className="bg-yellow-200 w-full py-2 px-4 rounded-xl outline-none"
+              className="bg-purple-300 w-full py-2 px-4 rounded-xl outline-none"
               value={selectedClienteId || ""}
               onChange={(e) => setSelectedClienteId(e.target.value)}
             >
@@ -172,10 +172,10 @@ const Car = (props) => {
               ))}
             </div>
           </div>
-          <div className={`bg-yellow-200 absolute w-full bottom-0 left-0 p-4 ${pedidoCreado ? 'mt-2' : ''}`}>
+          <div className={`bg-purple-100 absolute w-full bottom-0 left-0 p-4 ${pedidoCreado ? 'mt-2' : ''}`}>
             <div className="flex items-center justify-between">
-              <span className="text-purple-400 font-semibold text-lg">Total</span>
-              <span className="text-purple-400 font-bold text-xl">${internalTotal.toFixed(2)}</span>
+              <span className="text-blue-400 font-semibold text-lg">Total</span>
+              <span className="text-blue-400 font-bold text-xl">${internalTotal.toFixed(2)}</span>
             </div>
             <button className="bg-blue-700 text-white text-lg w-full py-3 pl-8 pr-4 mt-4 rounded-xl" onClick={handleRealizarPedido}>
               Realizar pedido

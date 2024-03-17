@@ -152,7 +152,7 @@ const HomePage = () => {
                 />
               ))
             ) : (
-              <h2 className="text-3xl font-Lilita_One text-alitas_obs_red">
+              <h2 className="text-3xl font-Lilita_One text-blue-400">
                 Error al cargar productos. Por favor, inténtalo de nuevo más tarde.
               </h2>
             )}

@@ -113,7 +113,7 @@ const Clientes = () => {
   const colores = ["#733c3c", "#98a360", "#60a39b", "#63548a", "#9c5c98"];
 
   return (
-    <div className="bg-alitas_obs_beige w-full min-h-screen">
+    <div className="bg-gray-100 w-full min-h-screen">
       <Sidebar showMenu={showMenu} />
 
       {/* NAV de móvil */}
@@ -135,18 +135,18 @@ const Clientes = () => {
       {/* Main */}
       <main className="lg:pl-32 lg:pr-96 pb-20">
         <div className="md:p-8 p-4">
-          <h1 className="lg:text-3xl text-2xl text-alitas_red font-Lilita_One uppercase"> CLIENTES </h1>
-          <p className="lg:text-xl text-sm text-alitas_obs_red uppercase">Alitas le bro</p>
+          <h1 className="lg:text-3xl text-2xl text-purple-400 font-Lilita_One uppercase"> CLIENTES </h1>
+          <p className="lg:text-xl text-sm text-blue-400 uppercase">PET PLACE</p>
 
           {/* Tabla de clientes */}
           <table className="min-w-full bg-white border border-gray-300 shadow-md rounded-md overflow-hidden">
-                      <thead className="bg-alitas_beige">
+                      <thead className="bg-purple-500">
               <tr>
-                <th className="py-2 px-4 border-b text-left text-alitas_obs_red uppercase"></th>
-                <th className="py-2 px-4 border-b text-left text-alitas_obs_red uppercase">ID</th>
-                <th className="py-2 px-4 border-b text-left text-alitas_obs_red uppercase">Nombre</th>
-                <th className="py-2 px-4 border-b text-left text-alitas_obs_red uppercase">Telefono</th>
-                <th className="py-2 px-4 border-b text-left text-alitas_obs_red uppercase">Acciones</th>
+                <th className="py-2 px-4 border-b text-left text-white uppercase"></th>
+                <th className="py-2 px-4 border-b text-left text-white uppercase">ID</th>
+                <th className="py-2 px-4 border-b text-left text-white uppercase">Nombre</th>
+                <th className="py-2 px-4 border-b text-left text-white uppercase">Telefono</th>
+                <th className="py-2 px-4 border-b text-left text-white uppercase">Acciones</th>
               </tr>
             </thead>
             <tbody>
