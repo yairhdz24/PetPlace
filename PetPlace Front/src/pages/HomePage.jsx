@@ -103,7 +103,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className='bg-gray-100 w-full min-h-screen'>
+    <div className=' w-full min-h-screen' style={{ backgroundColor: "#ebe7b7" }}>
       <Sidebar showMenu={showMenu} />
       <Car
         showOrder={showOrder}
@@ -116,12 +116,12 @@ const HomePage = () => {
 
       {/* Main */}
       <main className="lg:pl-32 lg:pr-96 pb-20">
+        <Header />
         <div className="md:p-8 p-4">
+          <div className="flex item-center justify-between mb-4">
+            <h2 className="text-4xl font-Lilita_One uppercase text-blue-400">Productos</h2>
+            
 
-          <Header />
-
-          <div className="flex item-center justify-between mb-16">
-            <h2 className="text-3xl font-Lilita_One text-blue-400">Inserte los productos que desea</h2>
           </div>
 
           {/* Contenido del backend PRODUCTOS */}
