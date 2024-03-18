@@ -17,7 +17,7 @@ const Card = (props) => {
   };
 
   return (
-    <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow transform transition-transform hover:-translate-y-5">
+    <div className="w-full max-w-sm bg-white border border-gray-200 rounded-2xl  shadow transform transition-transform hover:-translate-y-5">
       <img className="p-8 rounded-t-lg object-cover h-96 w-full" src={img} alt={description} />
       <br></br>
       <hr className="my-5 border-gray-300" /> {/* Line separator */}
