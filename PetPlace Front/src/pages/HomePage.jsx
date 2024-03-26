@@ -19,7 +19,7 @@ import Collar_Perro from '../images/CollarPerro.jpeg';
 import Collar_Gato from '../images/CollarGato.jpeg';
 import Correa_Perro from '../images/CorreaPerro.jpeg';
 import Rascador_Gato from '../images/RascadorGato.jpeg';
-import Cama_Perro from '../images/CamaPerro.jpeg';
+import Cama_Perro from '../images/CamaPerro.jpeg'; //Hola
 import Cama_Gato from '../images/CamaGato.jpg';
 
 
