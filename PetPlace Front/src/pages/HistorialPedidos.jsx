@@ -10,7 +10,6 @@ const HistorialPedidos = () => {
 
   const GetHistorialPedidos = async () => {
     try {
-      // Hacer la solicitud para obtener los datos de la tabla de historial de pedidos
       const response = await axios.get("http://localhost:3001/historial");
       setHistorialPedidos(response.data);
     } catch (error) {
@@ -31,7 +30,6 @@ const HistorialPedidos = () => {
   return (
     <div className="bg-alitas_obs_beige w-full min-h-screen">
       <Sidebar showMenu={showMenu} />
-      {/* NAV de mobil */}
       <nav className="bg-alitas_beige lg:hidden fixed w-full bottom-0 left-0 text-3xl text-alitas_obs_red p-4 flex items-center justify-between rounded-tl-xl rounded-tr-xl">
         <button className="p-2">
           <RiCloseLine />
@@ -47,21 +45,16 @@ const HistorialPedidos = () => {
         </button>
       </nav>
 
-      {/* Main */}
       <main className="lg:pl-32 lg:pr-96 pb-20 mt-8">
         <div className="md:p-8 p-4">
-          {/* Sección tabla de historial de pedidos */}
           <section className="container px-4 mx-auto">
             <div className="flex flex-col">
               <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                   <div className="overflow-hidden md:rounded-lg">
                     <h1 className="lg:text-3xl text-2xl text-alitas_red font-Lilita_One uppercase"> HISTORIAL DE PEDIDOS </h1>
-                    {/* Indicador de carga */}
                     {loading && <p>Cargando...</p>}
-                    {/* Mensaje de error */}
                     {historialPedidos.length === 0 && !loading && <p>Error al cargar el historial de pedidos. Por favor, inténtalo de nuevo más tarde.</p>}
-                    {/* Tabla de historial de pedidos */}
                     <table className="min-w-full bg-white border border-gray-300 shadow-md rounded-md overflow-hidden">
                       <thead className="bg-alitas_beige">
                         <tr>
