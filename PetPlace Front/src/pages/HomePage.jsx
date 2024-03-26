@@ -103,7 +103,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className=' w-full min-h-screen' style={{ backgroundColor: "#ebe7b7" }}>
+    <div className=' w-full min-h-screen bg-gradient-to-b from-[#FFEDDA] to-[#FFD580]' >
       <Sidebar showMenu={showMenu} />
       <Car
         showOrder={showOrder}
