@@ -23,6 +23,9 @@ import Rascador_Gato from '../images/RascadorGato.jpeg';
 import Cama_Perro from '../images/CamaPerro.jpeg';
 import Cama_Gato from '../images/CamaGato.jpg';
 
+
+
+
 const HomePage = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [showOrder, setShowOrder] = useState(false);

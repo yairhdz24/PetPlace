@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Sidebar from '../components/Sidebar';
 import {
   RiCloseLine,
@@ -10,6 +9,7 @@ import {
   RiPencilFill,
   RiDeleteBin6Fill,
 } from 'react-icons/ri';
+
 
 import supabase from "../../Backend/supabaseConfig";
 
