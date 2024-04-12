@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Sidebar from '../components/Sidebar';
 import { RiCloseLine, RiAddFill, RiFileList3Fill, RiMenu3Fill } from 'react-icons/ri';
 
+
 const HistorialPedidos = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [historialPedidos, setHistorialPedidos] = useState([]);
