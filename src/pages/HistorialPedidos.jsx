@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import Sidebar from '../components/Sidebar';
 import { RiCloseLine, RiAddFill, RiFileList3Fill, RiMenu3Fill } from 'react-icons/ri';
 
