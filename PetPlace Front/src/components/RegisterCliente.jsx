@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
+import supabase from '../../../Backend/supabaseConfig';
 
-const RegisterCliente = ({ isOpen, closeModal, onRegisterCliente }) => {
+const RegisterCliente = ({ isOpen, closeModal }) => {
   const [nombreCliente, setNombreCliente] = useState('');
   const [telefonoCliente, setTelefonoCliente] = useState('');
   const [error, setError] = useState('');
@@ -22,34 +23,30 @@ const RegisterCliente = ({ isOpen, closeModal, onRegisterCliente }) => {
     }
 
     try {
-      const response = await fetch('http://localhost:3001/clientes', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+      const { data, error } = await supabase.from('clientes').insert([
+        {
           nombre: nombreCliente,
           telefono: telefonoCliente,
-        }),
-      });
-
-      if (response.ok) {
-        toast.success('Cliente registrado exitosamente.');
+        }
+      ]);
+      if (error) {
+        toast.error('Error al registrar el cliente');
+      }
+      else {
         closeModal();
-        window.location.reload();
-        onRegisterCliente();
-      } else {
-        toast.error('Error al registrar nuevo cliente.');
+        toast.success('Cliente registrado exitosamente.');
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       }
     } catch (error) {
       toast.error('Error de red al registrar nuevo cliente', error);
     }
+    
   };
 
   const handleClickRegistrar = () => {
-    // Reiniciar el estado de error al hacer clic en "Registrar"
     setError('');
-    // Llamar a la función de registro
     handleRegistrarCliente();
   };
 
@@ -57,12 +54,12 @@ const RegisterCliente = ({ isOpen, closeModal, onRegisterCliente }) => {
     <div>
       {isOpen && (
         <div className="fixed inset-0 z-10 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div className="flex items-end justify-end min-h-screen px-4 pt-4 pb-520 text-center sm:block sm:p-0 " style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
-          <span className="hidden sm:inline-block sm:h-screen sm:align-middle" aria-hidden="true">
-            &#8203;
-          </span>
-      
-          <div className="relative inline-block w-full max-w-sm p-6 overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:w-full sm:p-6 sm:align-middle border-gray-300 border-2 sm:right-0">
+          <div className="flex items-end justify-end min-h-screen px-4 pt-4 pb-520 text-center sm:block sm:p-0 " style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+            <span className="hidden sm:inline-block sm:h-screen sm:align-middle" aria-hidden="true">
+              &#8203;
+            </span>
+
+            <div className="relative inline-block w-full max-w-sm p-6 overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:w-full sm:p-6 sm:align-middle border-gray-300 border-2 sm:right-0">
               <h3 className="text-lg font-medium leading-6 text-gray-900 capitalize" id="modal-title">
                 Registrar Cliente
               </h3>
