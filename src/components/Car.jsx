@@ -3,7 +3,7 @@ import { RiCloseLine, RiDeleteBin6Fill } from "react-icons/ri";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import RegisterCliente from './RegisterCliente';
-import supabase from "../../../Backend/supabaseConfig";
+import supabase from "../../Backend/supabaseConfig";
 
 const Car = (props) => {
   const { showOrder, setShowOrder, cart, removeFromCart, total: externalTotal } = props;

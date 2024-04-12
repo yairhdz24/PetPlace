@@ -11,7 +11,7 @@ import {
   RiDeleteBin6Fill,
 } from 'react-icons/ri';
 
-import supabase from "../../../Backend/supabaseConfig";
+import supabase from "../../Backend/supabaseConfig";
 
 
 const Clientes = () => {

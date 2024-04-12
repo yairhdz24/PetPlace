@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import supabase from '../../../Backend/supabaseConfig';
+import supabase from '../../Backend/supabaseConfig';
 
 const RegisterCliente = ({ isOpen, closeModal }) => {
   const [nombreCliente, setNombreCliente] = useState('');

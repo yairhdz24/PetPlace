@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
 import { RiPencilFill, RiDeleteBin6Fill } from 'react-icons/ri';
-import supabase from '../../../Backend/supabaseConfig';
+import supabase from '../../Backend/supabaseConfig';
 
 export const Ventas = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);

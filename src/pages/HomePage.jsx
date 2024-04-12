@@ -7,7 +7,7 @@ import Card from "../components/Card";
 import Header from "../components/Header";
 import { Fotter } from "../components/Fotter";
 import { Skeleton } from "../components/Skeleton";
-import supabase from "../../../Backend/supabaseConfig";
+import supabase from "../../Backend/supabaseConfig";
 
 // Imágenes
 
