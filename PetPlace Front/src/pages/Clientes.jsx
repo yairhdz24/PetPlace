@@ -11,6 +11,9 @@ import {
   RiDeleteBin6Fill,
 } from 'react-icons/ri';
 
+import supabase from "../../../Backend/supabaseConfig";
+
+
 const Clientes = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -24,12 +27,20 @@ const Clientes = () => {
     setShowDeleteModal(true);
   };
 
+  //funcion para ordenar los clientes
+  const OrdenarClientes = (clientes) => {
+    return clientes.sort((a, b) => a.id_cliente - b.id_cliente);
+  };
+
+
   useEffect(() => {
     const fetchClientes = async () => {
       try {
-        const response = await fetch("http://localhost:3001/clientes");
-        const data = await response.json();
-        setClientes(data);
+        const { data, error } = await supabase.from('clientes').select('*');
+        if (error) {
+          throw error;
+        }
+        setClientes(OrdenarClientes(data));
       } catch (error) {
         console.error("Error al obtener la lista de clientes", error);
       }
@@ -53,64 +64,53 @@ const Clientes = () => {
   const handleEliminarCliente = async () => {
     try {
       if (!selectedClienteId) {
-        console.error('No se ha seleccionado un pedido para eliminar.');
+        console.error('No se ha seleccionado un cliente para eliminar.');
         return;
       }
-    
-      // Eliminar pedido desde el backend
-      const response = await fetch(`http://localhost:3001/clientes/${selectedClienteId}`, { method: 'DELETE' });
-    
-      if (response.ok) {
-        console.log('cliente eliminado correctamente en el backend');
-    
-        // Actualizar la lista de pedidos localmente
-        const nuevosClietes = clientes.filter((cliente) => cliente.id_cliente !== selectedClienteId);
-        setClientes(nuevosClietes);
 
-      } else {
-        console.error('Error al eliminar cliente:', response.statusText);
+      // Eliminar cliente desde Supabase
+      const { data, error } = await supabase.from('clientes').delete().match({ id_cliente: selectedClienteId });
+
+      if (error) {
+        throw error;
       }
+
+      // Actualizar el estado local eliminando el cliente eliminado
+      setClientes(clientes.filter(cliente => cliente.id_cliente !== selectedClienteId));
     } catch (error) {
-      console.error('Error al conectar con el servidor:', error);
+      console.error('Error al eliminar el cliente:', error.message);
     }
-    
+
     // Cerrar el modal de confirmación
     setShowDeleteModal(false);
   };
-  
+
 
   const handleGuardarCambios = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/clientes/${selectedClienteId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          nombre: nombreCliente,
-          telefono: telefonoCliente,
-        }),
-      });
+      // Actualizar cliente en Supabase
+      const { data, error } = await supabase.from('clientes').update({ nombre: nombreCliente, telefono: telefonoCliente }).match({ id_cliente: selectedClienteId });
 
-      if (response.ok) {
-        // Actualizar el estado local con los cambios
-        const updatedClientes = clientes.map((cliente) =>
-          cliente.id_cliente === selectedClienteId
-            ? { ...cliente, nombre: nombreCliente, telefono: telefonoCliente }
-            : cliente
-        );
-
-        setClientes(updatedClientes);
-        setShowMenu(false);
-      } else {
-        console.error('Error al actualizar el cliente:', response.statusText);
+      if (error) {
+        throw error;
       }
+
+      // Actualizar el estado local con los cambios
+      setClientes(clientes.map((cliente) =>
+        cliente.id_cliente === selectedClienteId
+          ? { ...cliente, nombre: nombreCliente, telefono: telefonoCliente }
+          : cliente
+      ));
+
+      setShowMenu(false);
     } catch (error) {
-      console.error('Error al conectar con el servidor:', error);
+      console.error('Error al actualizar el cliente:', error.message);
     }
   };
 
-  const colores = ["#733c3c", "#98a360", "#60a39b", "#63548a", "#9c5c98"];
+  const colores = [
+    "#733c3c", "#98a360", "#60a39b", "#63548a", "#9c5c98", "#ff7f0e", "#2ca02c", "#1f77b4", "#d62728", "#9467bd"
+  ];
 
   return (
     <div className="bg-alitas_obs_beige w-full min-h-screen">
@@ -140,7 +140,7 @@ const Clientes = () => {
 
           {/* Tabla de clientes */}
           <table className="min-w-full bg-white border border-gray-300 shadow-md rounded-md overflow-hidden">
-                      <thead className="bg-alitas_beige">
+            <thead className="bg-alitas_beige">
               <tr>
                 <th className="py-2 px-4 border-b text-left text-alitas_obs_red uppercase"></th>
                 <th className="py-2 px-4 border-b text-left text-alitas_obs_red uppercase">ID</th>
@@ -181,7 +181,7 @@ const Clientes = () => {
 
           {/* Formulario de edición */}
           {showMenu && (
-            <div className="fixed inset-0 z-10 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true" >
+            <div className="fixed inset-0 z-10 overflow-y-auto" style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }} aria-labelledby="modal-title" role="dialog" aria-modal="true" >
               <div className="flex items-end justify-end min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
                 <span className="hidden sm:inline-block sm:h-screen sm:align-middle " aria-hidden="true">
                   &#8203;
@@ -252,7 +252,7 @@ const Clientes = () => {
 
           {/* Modal de confirmación para eliminar cliente */}
           {showDeleteModal && (
-            <div className="fixed inset-0 z-10 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+            <div className="fixed inset-0 z-10 overflow-y-auto" style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }} aria-labelledby="modal-title" role="dialog" aria-modal="true">
               <div className="flex items-end justify-end min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
                 <span className="hidden sm:inline-block sm:h-screen sm:align-middle" aria-hidden="true">
                   &#8203;
@@ -263,7 +263,7 @@ const Clientes = () => {
                   aria-modal="true"
                   aria-labelledby="modal-title"
                 >
-                  <div className="bg-gray-100 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                  <div className="bg-gray-100 px-4 pt-5 pb-4 sm:p-6 sm:pb-4 ">
                     <div className="sm:flex sm:items-start">
                       <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                         <h3 className="text-lg leading-6 font-medium text-gray-900" id="modal-title">
