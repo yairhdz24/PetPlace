@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { RiMenu3Fill, RiAddFill, RiFileList3Fill, RiCloseLine } from "react-icons/ri";
 import Sidebar from '../components/Sidebar';
 import Car from "../components/Car";
 import Card from "../components/Card";
@@ -143,7 +141,7 @@ const HomePage = () => {
                 </div>
               ))
             ) : (
-              <p>No se encontraron productos.</p>
+              <Skeleton/>
             )}
           </div>
         </div>
