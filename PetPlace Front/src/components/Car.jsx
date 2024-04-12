@@ -3,6 +3,7 @@ import { RiCloseLine, RiDeleteBin6Fill } from "react-icons/ri";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import RegisterCliente from './RegisterCliente';
+import supabase from "../../../Backend/supabaseConfig";
 
 const Car = (props) => {
   const { showOrder, setShowOrder, cart, removeFromCart, total: externalTotal } = props;
@@ -16,8 +17,10 @@ const Car = (props) => {
   useEffect(() => {
     const fetchClientes = async () => {
       try {
-        const response = await fetch("http://localhost:3001/clientes");
-        const data = await response.json();
+        const {data, error} = await supabase.from('clientes').select('*');
+        if (error) {
+          throw error;
+        }
         setClientes(data);
       } catch (error) {
         console.error("Error al obtener la lista de clientes", error);
@@ -36,46 +39,37 @@ const Car = (props) => {
       toast.error("Seleccione un cliente antes de realizar un pedido.");
       return;
     }
-
+  
     if (cart.length === 0) {
       toast.error("Añada al menos un producto al carrito antes de realizar un pedido.");
       return;
     }
-
+  
     try {
-      console.log("Datos del pedido:", {
-        idCliente: selectedClienteId,
-        productos: cart.map((product) => ({ id: product.id, cantidad: product.quantity })),
-        total: Number(internalTotal.toFixed(2)),
-      });
-
-      const responsePedido = await fetch("http://localhost:3001/pedidos", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          idCliente: selectedClienteId,
-          productos: cart.map((product) => ({ id: product.id, cantidad: product.quantity })),
-          total: Number(internalTotal.toFixed(2)),
-        }),
-      });
-
-      if (responsePedido.ok) {
-        const nuevoPedido = await responsePedido.json();
-        // setPedidoCreado(`Pedido creado exitosamente. Orden #${nuevoPedido.id_pedido}`);
-        setNumeroOrden((prevNumeroOrden) => prevNumeroOrden + 1);
-        toast.success("Pedido creado exitosamente. ¡Gracias por su compra!");
-        console.log("Pedido realizado exitosamente");
-      } else {
-        setPedidoCreado("Error al crear el pedido");
-        toast.error("Error al crear el pedido. Inténtelo de nuevo.");
-        console.error("Error al realizar el pedido");
+      // Calcular el total de la venta
+      const totalVenta = Number(internalTotal.toFixed(2));
+  
+      const { data: nuevaVenta, error } = await supabase.from('ventas').insert([
+        {
+          id_cliente: selectedClienteId,
+          fechahora: new Date().toISOString(), // nmms una hora para que el error estuviera en esta mmmda
+          totalventa: totalVenta,
+        }
+      ]);
+  
+      if (error) {
+        toast.error("Error al crear la venta. Inténtelo de nuevo.");
+        console.error("Error al realizar la venta", error);
+        return;
       }
+  
+      // Actualizar el número de orden
+      setNumeroOrden((prevNumeroOrden) => prevNumeroOrden + 1);
+      toast.success("Pedido creado exitosamente. ¡Gracias por su compra!");
+      console.log("Pedido realizado exitosamente");
     } catch (error) {
-      setPedidoCreado("Error de red al crear el pedido");
-      toast.error("Error de red al crear el pedido. Verifique su conexión.");
-      console.error("Error de red al realizar el pedido", error);
+      toast.error("Error al realizar el pedido. Verifique su conexión.");
+      console.error("Error al realizar el pedido", error);
     }
   };
 

@@ -7,6 +7,7 @@ import Card from "../components/Card";
 import Header from "../components/Header";
 import { Fotter } from "../components/Fotter";
 import { Skeleton } from "../components/Skeleton";
+import supabase from "../../../Backend/supabaseConfig";
 
 // Imágenes
 
@@ -49,8 +50,11 @@ const HomePage = () => {
   useEffect(() => {
     const fetchProductos = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/productos");
-        setProductos(response.data);
+        const { data, error } = await supabase.from('productos').select('*');
+        if (error) {
+          throw error;
+        }
+        setProductos(data);
       } catch (error) {
         console.error("Error al obtener la lista de productos", error);
       }
