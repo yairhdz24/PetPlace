@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { RiMenu3Fill, RiAddFill, RiFileList3Fill, RiCloseLine } from "react-icons/ri";
 import Sidebar from '../components/Sidebar';
@@ -23,16 +23,16 @@ import Rascador_Gato from '../images/RascadorGato.jpeg';
 import Cama_Perro from '../images/CamaPerro.jpeg';
 import Cama_Gato from '../images/CamaGato.jpg';
 
-
 const HomePage = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [showOrder, setShowOrder] = useState(false);
   const [cart, setCart] = useState([]);
   const [productos, setProductos] = useState([]);
+  const [filteredProductos, setFilteredProductos] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   // Define el objeto de mapeo para las imágenes utilizando la ID del producto
   const imageMapping = {
-
     29: DefaultImage, // No hay imagen específica, usa la predeterminada
     1: Perro_Comida,
     2: Gato_Comida,
@@ -44,7 +44,6 @@ const HomePage = () => {
     8: Rascador_Gato,
     9: Cama_Perro,
     10: Cama_Gato,
-
   };
 
   useEffect(() => {
@@ -55,6 +54,7 @@ const HomePage = () => {
           throw error;
         }
         setProductos(data);
+        setFilteredProductos(data); // Inicialmente, muestra todos los productos
       } catch (error) {
         console.error("Error al obtener la lista de productos", error);
       }
@@ -63,20 +63,13 @@ const HomePage = () => {
     fetchProductos();
   }, []);
 
-  const menu = () => {
-    setShowMenu(!showMenu);
-    setShowOrder(false);
-  };
-
-  const orders = () => {
-    setShowOrder(!showOrder);
-    setShowMenu(false);
-  };
-
-  const calculateTotal = () => {
-    const validCart = cart.filter(product => !isNaN(product.price) && !isNaN(product.quantity));
-    const total = validCart.reduce((acc, product) => acc + product.price * product.quantity, 0);
-    return isNaN(total) ? 0 : total;
+  const handleSearch = (e) => {
+    const term = e.target.value.toLowerCase();
+    setSearchTerm(term);
+    const filtered = productos.filter(producto =>
+      producto.nombre.toLowerCase().includes(term)
+    );
+    setFilteredProductos(filtered);
   };
 
   const addToCart = (product) => {
@@ -98,6 +91,12 @@ const HomePage = () => {
     setCart(updatedCart);
   };
 
+  const calculateTotal = () => {
+    const validCart = cart.filter(product => !isNaN(product.price) && !isNaN(product.quantity));
+    const total = validCart.reduce((acc, product) => acc + product.price * product.quantity, 0);
+    return isNaN(total) ? 0 : total;
+  };
+
   const getImageForProduct = (productId) => {
     // Verifica si hay una imagen asociada a la ID del producto
     const productImage = imageMapping[productId];
@@ -107,7 +106,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className=' w-full min-h-screen bg-gradient-to-b from-[#FFEDDA] to-[#FFD580]' >
+    <div className='w-full min-h-screen bg-gradient-to-b from-[#FFEDDA] to-[#FFD580]'>
       <Sidebar showMenu={showMenu} />
       <Car
         showOrder={showOrder}
@@ -117,23 +116,20 @@ const HomePage = () => {
         total={calculateTotal()}
       />
 
-
       {/* Main */}
       <main className="lg:pl-32 lg:pr-96 pb-20">
-        <Header />
+        <Header searchTerm={searchTerm} handleSearch={handleSearch} />
         <div className="md:p-8 p-4">
           <div className="flex item-center justify-between mb-4">
             <h2 className="text-4xl font-Lilita_One uppercase text-blue-400">Productos</h2>
-            
-
           </div>
 
           {/* Contenido del backend PRODUCTOS */}
           <div className="p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
-            {/* Mapear sobre la lista de productos desde la base de datos */}
-            {(productos.length > 0 ? productos : Array.from({ length: 9 })).map((producto, index) => (
-              <div key={index} className="w-full">
-                {producto ? (
+            {/* Mapear sobre la lista de productos filtrados */}
+            {filteredProductos.length > 0 ? (
+              filteredProductos.map((producto, index) => (
+                <div key={index} className="w-full">
                   <Card
                     img={getImageForProduct(producto.id_producto)}
                     description={producto.nombre}
@@ -141,11 +137,11 @@ const HomePage = () => {
                     id={producto.id_producto}
                     addToCart={addToCart}
                   />
-                ) : (
-                  <Skeleton />
-                )}
-              </div>
-            ))}
+                </div>
+              ))
+            ) : (
+              <p>No se encontraron productos.</p>
+            )}
           </div>
         </div>
       </main>
