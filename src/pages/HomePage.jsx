@@ -122,7 +122,7 @@ const HomePage = () => {
         <Header searchTerm={searchTerm} handleSearch={handleSearch} />
         <div className="md:p-8 p-4">
           <div className="flex item-center justify-between mb-4">
-            <h2 className="text-4xl font-Lilita_One uppercase text-blue-400">Productos</h2>
+            <h2 className="text-4xl font-Lilita_One uppercase text-yellow-400">Productos</h2>
           </div>
 
           {/* Contenido del backend PRODUCTOS */}

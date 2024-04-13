@@ -76,17 +76,17 @@ const Car = (props) => {
   return (
     <>
       <div
-        className={`lg:col-span-2 bg-blue-100 fixed top-0 w-full h-full lg:right-0 lg:w-96 transition-all z-50 ${showOrder ? "right-0" : "-right-full"
+        className={`lg:col-span-2 bg-orange-100 fixed top-0 w-full h-full lg:right-0 lg:w-96 transition-all z-50 ${showOrder ? "right-0" : "-right-full"
           }`}
       >
-        <div className="relative h-full pt-16 p-8 lg:pt-8 text-purple-500">
+        <div className="relative h-full pt-16 p-8 lg:pt-8 text-orange-500">
           <RiCloseLine
             onClick={() => setShowOrder(false)}
-            className="lg:hidden absolute left-4 top-4 p-3 box-content text-purple-400 bg-yellow-400 rounded-full text-2xl"
+            className="lg:hidden absolute left-4 top-4 p-3 box-content text-orange-400 bg-yellow-400 rounded-full text-2xl"
           />
-          <h1 className="text-2xl mt-4 text-purple-400">Orden #{numeroOrden}</h1>
+          <h1 className="text-2xl mt-4 text-orange-400">Orden #{numeroOrden}</h1>
           <form className="flex items-center gap-2 flex-wrap mt-4 mb-8">
-            <h1 className="text-xl text-blue-400">Cliente:</h1>
+            <h1 className="text-xl text-orange-400">Cliente:</h1>
             <select
               className="bg-yellow-200 w-full py-2 px-4 rounded-xl outline-none"
               value={selectedClienteId || ""}
@@ -103,7 +103,7 @@ const Car = (props) => {
             </select>
 
             <button
-              className="bg-blue-700 text-white text-lg px-4 py-2 rounded-lg "
+              className="bg-orange-700 text-white text-lg px-4 py-2 rounded-lg "
               onClick={(e) => {
                 e.preventDefault();
                 setShowRegisterModal(true);
@@ -127,15 +127,15 @@ const Car = (props) => {
           <div>
           <div>
             <div className="grid grid-cols-6 mb-4 p-4">
-              <h5 className="col-span-4 font-semibold text-lg text-purple-400">Producto</h5>
-              <h5 className="font-semibold text-lg text-purple-400">Cant</h5>
-              <h5 className="font-semibold text-lg text-purple-400">Precio</h5>
+              <h5 className="col-span-4 font-semibold text-lg text-orange-400">Producto</h5>
+              <h5 className="font-semibold text-lg text-orange-400">Cant</h5>
+              <h5 className="font-semibold text-lg text-orange-400">Precio</h5>
             </div>
           </div>
 
             <div className="h-[400px] md:h-[700px] lg:h-[540px] overflow-y-scroll">
               {cart.map((product) => (
-                <div key={product.id} className="bg-yellow-100 p-4 rounded-xl mb-4 text-blue-400">
+                <div key={product.id} className="bg-yellow-100 p-4 rounded-xl mb-4 text-orange-400">
                   <div className="grid grid-cols-6 mb-4">
                     <div className="col-span-4 flex items-center gap-2">
                       <img src={product.img} className="w-10 h-10 object-cover rounded-full" alt={product.description} />
@@ -156,9 +156,9 @@ const Car = (props) => {
                     <div>
                       <button
                         onClick={() => removeFromCart(product.id)}
-                        className="border border-purple-400 p-2 rounded-lg"
+                        className="border border-orange-400 p-2 rounded-lg"
                       >
-                        <RiDeleteBin6Fill className="text-purple-400" />
+                        <RiDeleteBin6Fill className="text-orange-400" />
                       </button>
                     </div>
                   </div>
@@ -168,10 +168,10 @@ const Car = (props) => {
           </div>
           <div className={`bg-yellow-200 absolute w-full bottom-0 left-0 p-4 ${pedidoCreado ? 'mt-2' : ''}`}>
             <div className="flex items-center justify-between">
-              <span className="text-purple-400 font-semibold text-lg">Total</span>
-              <span className="text-purple-400 font-bold text-xl">${internalTotal.toFixed(2)}</span>
+              <span className="text-orange-400 font-semibold text-lg">Total</span>
+              <span className="text-orange-400 font-bold text-xl">${internalTotal.toFixed(2)}</span>
             </div>
-            <button className="bg-blue-700 text-white text-lg w-full py-3 pl-8 pr-4 mt-4 rounded-xl" onClick={handleRealizarPedido}>
+            <button className="bg-orange-700 text-white text-lg w-full py-3 pl-8 pr-4 mt-4 rounded-xl" onClick={handleRealizarPedido}>
               Realizar pedido
             </button>
             {pedidoCreado && (
