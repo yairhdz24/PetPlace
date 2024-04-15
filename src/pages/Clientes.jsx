@@ -14,7 +14,7 @@ import {
 import supabase from "../../Backend/supabaseConfig";
 
 
-const Clientes = () => {
+export const Clientes = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [clientes, setClientes] = useState([]);
@@ -299,4 +299,3 @@ const Clientes = () => {
   );
 };
 
-export default Clientes;

@@ -9,7 +9,6 @@ import supabase from "../../Backend/supabaseConfig";
 
 // Imágenes
 
-import DefaultImage from '../images/default.jpg';
 import Perro_Comida from '../images/Perro_Comida.png';
 import Gato_Comida from '../images/Gato_Comida.jpg';
 import Juguete_Perro from '../images/Juguete_Perro.jpg';
@@ -21,10 +20,7 @@ import Rascador_Gato from '../images/RascadorGato.jpeg';
 import Cama_Perro from '../images/CamaPerro.jpeg';
 import Cama_Gato from '../images/CamaGato.jpg';
 
-
-
-
-const HomePage = () => {
+export const HomePage = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [showOrder, setShowOrder] = useState(false);
   const [cart, setCart] = useState([]);
@@ -34,7 +30,6 @@ const HomePage = () => {
 
   // Define el objeto de mapeo para las imágenes utilizando la ID del producto
   const imageMapping = {
-    29: DefaultImage, // No hay imagen específica, usa la predeterminada
     1: Perro_Comida,
     2: Gato_Comida,
     3: Juguete_Perro,
@@ -45,6 +40,8 @@ const HomePage = () => {
     8: Rascador_Gato,
     9: Cama_Perro,
     10: Cama_Gato,
+    11: Cama_Gato,
+    12: Cama_Gato,
   };
 
   useEffect(() => {
@@ -152,4 +149,3 @@ const HomePage = () => {
   );
 }
 
-export default HomePage;
