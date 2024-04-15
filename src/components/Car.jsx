@@ -66,10 +66,10 @@ const Car = (props) => {
       // Actualizar el número de orden
       setNumeroOrden((prevNumeroOrden) => prevNumeroOrden + 1);
       toast.success("Pedido creado exitosamente. ¡Gracias por su compra!");
-      console.log("Pedido realizado exitosamente");
+      // console.log("Pedido realizado exitosamente");
     } catch (error) {
       toast.error("Error al realizar el pedido. Verifique su conexión.");
-      console.error("Error al realizar el pedido", error);
+      // console.error("Error al realizar el pedido", error);
     }
   };
 
@@ -84,11 +84,11 @@ const Car = (props) => {
             onClick={() => setShowOrder(false)}
             className="lg:hidden absolute left-4 top-4 p-3 box-content text-orange-400 bg-yellow-400 rounded-full text-2xl"
           />
-          <h1 className="text-2xl mt-4 text-orange-400">Orden #{numeroOrden}</h1>
+          <h1 className="text-2xl font-Poppins font-bold mt-4 text-orange-400">Orden #{numeroOrden}</h1>
           <form className="flex items-center gap-2 flex-wrap mt-4 mb-8">
-            <h1 className="text-xl text-orange-400">Cliente:</h1>
+            <h1 className="text-xl font-Poppins font-semibold text-orange-400">Cliente:</h1>
             <select
-              className="bg-yellow-200 w-full py-2 px-4 rounded-xl outline-none"
+              className="bg-yellow-200 w-full py-2 px-4 rounded-xl outline-none font-Poppins border-2 border-orange-300"
               value={selectedClienteId || ""}
               onChange={(e) => setSelectedClienteId(e.target.value)}
             >
@@ -103,7 +103,7 @@ const Car = (props) => {
             </select>
 
             <button
-              className="bg-orange-700 text-white text-lg px-4 py-2 rounded-lg "
+              className="bg-orange-700 text-white text-base px-4 py-2 rounded-lg font-Poppins"
               onClick={(e) => {
                 e.preventDefault();
                 setShowRegisterModal(true);
@@ -126,28 +126,29 @@ const Car = (props) => {
           </form>
           <div>
           <div>
-            <div className="grid grid-cols-6 mb-4 p-4">
-              <h5 className="col-span-4 font-semibold text-lg text-orange-400">Producto</h5>
-              <h5 className="font-semibold text-lg text-orange-400">Cant</h5>
-              <h5 className="font-semibold text-lg text-orange-400">Precio</h5>
+            <div className="grid grid-cols-5 mb-4 p-4 font-Poppins">
+              <h5 className="col-span-3 text-lg text-orange-400">Producto</h5>
+              <h5 className=" text-lg text-orange-400">Cant</h5>
+              <h5 className=" text-lg text-orange-400">Precio</h5>
+              
             </div>
           </div>
 
-            <div className="h-[400px] md:h-[700px] lg:h-[540px] overflow-y-scroll">
+            <div className="h-[400px] md:h-[800px] lg:h-[540px] overflow-y-scroll ">
               {cart.map((product) => (
                 <div key={product.id} className="bg-yellow-100 p-4 rounded-xl mb-4 text-orange-400">
                   <div className="grid grid-cols-6 mb-4">
                     <div className="col-span-4 flex items-center gap-2">
                       <img src={product.img} className="w-10 h-10 object-cover rounded-full" alt={product.description} />
                       <div>
-                        <h5 className="text-sm ">{product.description}</h5>
-                        <p className="text-xs text-opacity-10">${product.price.toFixed(2)}</p>
+                        <h5 className="text-sm font-bold font-Poppins">{product.description}</h5>
+                        <p className="text-xs text-opacity-10 font-Poppins">${product.price.toFixed(2)}</p>
                       </div>
                     </div>
                     <div className="text-center ">
                       <span>{product.quantity}</span>
                     </div>
-                    <div className="">
+                    <div className="font-Poppins font-bold">
                       <span>${(product.price * product.quantity).toFixed(2)}</span>
                     </div>
                   </div>
@@ -156,9 +157,9 @@ const Car = (props) => {
                     <div>
                       <button
                         onClick={() => removeFromCart(product.id)}
-                        className="border border-orange-400 p-2 rounded-lg"
+                        className="border border-orange-400 p-2 rounded-lg hover:bg-orange-400 hover:text-white transition-all"
                       >
-                        <RiDeleteBin6Fill className="text-orange-400" />
+                        <RiDeleteBin6Fill className="text-orange-400 hover:text-white text-lg"/>
                       </button>
                     </div>
                   </div>
@@ -166,12 +167,12 @@ const Car = (props) => {
               ))}
             </div>
           </div>
-          <div className={`bg-yellow-200 absolute w-full bottom-0 left-0 p-4 ${pedidoCreado ? 'mt-2' : ''}`}>
+          <div className={`bg-yellow-200 absolute w-full bottom-0 border-t-4 border-orange-400 left-0 p-4 ${pedidoCreado ? 'mt-2' : ''}`}>
             <div className="flex items-center justify-between">
-              <span className="text-orange-400 font-semibold text-lg">Total</span>
-              <span className="text-orange-400 font-bold text-xl">${internalTotal.toFixed(2)}</span>
+              <span className="text-orange-400 font-semibold text-lg font-Poppins">Total</span>
+              <span className="text-orange-400 font-bold text-xl font-Poppins">${internalTotal.toFixed(2)}</span>
             </div>
-            <button className="bg-orange-700 text-white text-lg w-full py-3 pl-8 pr-4 mt-4 rounded-xl" onClick={handleRealizarPedido}>
+            <button className="bg-orange-700 text-white text-lg w-full py-3 pl-8 pr-4 mt-4 rounded-xl font-Poppins" onClick={handleRealizarPedido}>
               Realizar pedido
             </button>
             {pedidoCreado && (
