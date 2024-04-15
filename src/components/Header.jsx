@@ -11,12 +11,12 @@ const Header = ({ searchTerm, handleSearch }) => {
       {/* Contenedor de la barra de búsqueda */}
       <div className="absolute top-0 right-0 mr-4 mt-4">
         <form className="relative flex items-center">
-          <RiSearchLine className="text-orange-400 -mr-6 z-10" />
+          <RiSearchLine className="text-orange-400 text-xl -mr-7 z-10" />
           <input
             type="text"
             value={searchTerm}
             onChange={handleSearch}
-            className="bg-yellow-100 py-1 pl-8 pr-4 rounded-lg text-black text-sm outline-none"
+            className="bg-yellow-100 py-3 pl-8 pr-8 border-2 border-orange-400 rounded-lg text-black text-sm outline-none"
             placeholder="Buscar producto"
           />
         </form>
