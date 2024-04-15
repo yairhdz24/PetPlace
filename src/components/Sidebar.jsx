@@ -41,7 +41,7 @@ const Sidebar = (props) => {
                         </Link>
                     </li>
                     <li className={`bg-gray-100 p-4 mb-2 rounded-tl-xl rounded-bl-xl group transition-colors ${activeTab === '/pedidos' ? 'bg-orange-400' : ''}`}>
-                        <Link to='/pedidos' className={`group-hover:bg-yellow-400 p-4 flex justify-center rounded-xl group-hover:text-white transition-colors ${activeTab === '/pedidos' ? 'text-white' : 'text-orange-300'}`} onClick={() => handleSetActiveTab('/pedidos')}>
+                        <Link to='/ventas' className={`group-hover:bg-yellow-400 p-4 flex justify-center rounded-xl group-hover:text-white transition-colors ${activeTab === '/pedidos' ? 'text-white' : 'text-orange-300'}`} onClick={() => handleSetActiveTab('/pedidos')}>
                             <RiFileList3Fill className='text-2xl' />
                         </Link>
                     </li>
@@ -51,7 +51,7 @@ const Sidebar = (props) => {
                         </Link>
                     </li>
                     <li className={`bg-gray-100 p-4 mb-2 rounded-tl-xl rounded-bl-xl group transition-colors ${activeTab === '/historialpedidos' ? 'bg-orange-400' : ''}`}>
-                        <Link to='/historialpedidos' className={`group-hover:bg-yellow-400 p-4 flex justify-center rounded-xl group-hover:text-white transition-colors ${activeTab === '/historialpedidos' ? 'text-white' : 'text-orange-300'}`} onClick={() => handleSetActiveTab('/historialpedidos')}>
+                        <Link to='/Corte-Caja' className={`group-hover:bg-yellow-400 p-4 flex justify-center rounded-xl group-hover:text-white transition-colors ${activeTab === '/historialpedidos' ? 'text-white' : 'text-orange-300'}`} onClick={() => handleSetActiveTab('/historialpedidos')}>
                             <RiHistoryFill className='text-2xl' />
                         </Link>
                     </li>
