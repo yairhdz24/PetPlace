@@ -10,10 +10,11 @@ import {
   RiDeleteBin6Fill,
 } from 'react-icons/ri';
 
+
 import supabase from "../../Backend/supabaseConfig";
 
 
-const Clientes = () => {
+export const Clientes = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [clientes, setClientes] = useState([]);
@@ -135,7 +136,7 @@ const Clientes = () => {
       <main className="lg:pl-32 lg:pr-96 pb-20">
         <div className="md:p-8 p-4">
           <h1 className="lg:text-3xl text-2xl text-alitas_red font-Lilita_One uppercase"> CLIENTES </h1>
-          <p className="lg:text-xl text-sm text-alitas_obs_red uppercase">Alitas le bro</p>
+          <p className="lg:text-xl text-sm text-alitas_obs_red uppercase">Pet Place</p>
 
           {/* Tabla de clientes */}
           <table className="min-w-full bg-white border border-gray-300 shadow-md rounded-md overflow-hidden">
@@ -298,4 +299,3 @@ const Clientes = () => {
   );
 };
 
-export default Clientes;

@@ -9,7 +9,6 @@ export const Ventas = () => {
   const [selectedVentaId, setSelectedVentaId] = useState(null);
   const [editTotal, setEditTotal] = useState('');
   const [editVenta, setEditVenta] = useState(null);
-
   const handleGuardarCambios = async () => {
     try {
       const { data, error } = await supabase
@@ -20,18 +19,28 @@ export const Ventas = () => {
         console.error('Error al actualizar la venta:', error.message);
         return;
       }
-
+  
       // Actualizar la lista de ventas localmente
       const nuevasVentas = ventas.map((venta) =>
         venta.id_venta === selectedVentaId ? { ...venta, totalventa: editTotal } : venta
       );
       setVentas(nuevasVentas);
+  
+      // Forzar la actualización de la página
+      setSelectedVentaId(null);
+
+      window.location.reload();
     } catch (error) {
       console.error('Error al conectar con el servidor:', error);
     }
+  };
+    
+  const handleCancelarEdicion = () => {
+    setEditVenta(null);
+    setEditTotal('');
     setSelectedVentaId(null);
   };
-
+  
   const handleEditarVenta = async (id) => {
     try {
       const { data, error } = await supabase.from('ventas').select().match({ id_venta: id });
@@ -123,11 +132,15 @@ export const Ventas = () => {
                                   <RiPencilFill />
                                 </button>
                                 <button
-                                  onClick={() => setShowDeleteModal(true)}
-                                  className="bg-red-500 text-white px-2 py-2 rounded-full hover:bg-red-700 ml-4"
-                                >
-                                  <RiDeleteBin6Fill />
-                                </button>
+                                onClick={() => {
+                                  setShowDeleteModal(true);
+                                  setSelectedVentaId(venta.id_venta); // Aquí seleccionamos la venta antes de mostrar el modal
+                                }}
+                                className="bg-red-500 text-white px-2 py-2 rounded-full hover:bg-red-700 ml-4"
+                              >
+                                <RiDeleteBin6Fill />
+                              </button>
+
                               </div>
                             </td>
                           </tr>
@@ -166,13 +179,15 @@ export const Ventas = () => {
                 </div>
               </div>
               <div className="bg-gray-100 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <button
-                  onClick={handleEliminarVenta}
-                  type="button"
-                  className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-alitas_obs_red text-base font-medium text-white hover:bg-alitas_red focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 sm:ml-3 sm:w-auto sm:text-sm"
-                >
-                  Confirmar
-                </button>
+              <button
+                onClick={() => handleEliminarVenta(selectedVentaId)}
+                type="button"
+                className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-alitas_obs_red text-base font-medium text-white hover:bg-alitas_red focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 sm:ml-3 sm:w-auto sm:text-sm"
+              >
+                Confirmar
+              </button>
+
+
                 <button
                   onClick={() => setShowDeleteModal(false)}
                   type="button"
@@ -227,12 +242,13 @@ export const Ventas = () => {
                     Guardar Cambios
                   </button>
                   <button
-                    onClick={() => setSelectedVentaId(null)}
+                    onClick={handleCancelarEdicion}
                     type="button"
                     className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                   >
                     Cancelar
                   </button>
+
                 </div>
               </div>
             </div>

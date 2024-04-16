@@ -35,23 +35,23 @@ const Sidebar = (props) => {
                         />
                         {/* <h1 className='text-xl font-Lilita_One text-blue-400 uppercase text-center'>{"PEt"} <br /> {"Place"}</h1> */}
                     </li>
-                    <li className={`bg-gray-100 p-4 mb-2 rounded-tl-xl rounded-bl-xl group transition-colors ${activeTab === '/' ? 'bg-purple-400' : ''}`}>
-                        <Link to='/' className={`group-hover:bg-purple-400 p-4 flex justify-center rounded-xl group-hover:text-white transition-colors ${activeTab === '/' ? 'text-white' : 'text-purple-400'}`} onClick={() => handleSetActiveTab('/')}>
+                    <li className={`bg-gray-100 p-4 mb-2 rounded-tl-xl rounded-bl-xl group transition-colors ${activeTab === '/' ? 'bg-orange-400' : ''}`}>
+                        <Link to='/' className={`group-hover:bg-yellow-400 p-4 flex justify-center rounded-xl group-hover:text-white transition-colors ${activeTab === '/' ? 'text-white' : 'text-orange-300'}`} onClick={() => handleSetActiveTab('/')}>
                             <RiRestaurantFill className='text-2xl' />
                         </Link>
                     </li>
-                    <li className={`bg-gray-100 p-4 mb-2 rounded-tl-xl rounded-bl-xl group transition-colors ${activeTab === '/pedidos' ? 'bg-purple-400' : ''}`}>
-                        <Link to='/pedidos' className={`group-hover:bg-purple-400 p-4 flex justify-center rounded-xl group-hover:text-white transition-colors ${activeTab === '/pedidos' ? 'text-white' : 'text-purple-400'}`} onClick={() => handleSetActiveTab('/pedidos')}>
+                    <li className={`bg-gray-100 p-4 mb-2 rounded-tl-xl rounded-bl-xl group transition-colors ${activeTab === '/ventas' ? 'bg-orange-400' : ''}`}>
+                        <Link to='/ventas' className={`group-hover:bg-yellow-400 p-4 flex justify-center rounded-xl group-hover:text-white transition-colors ${activeTab === '/ventas' ? 'text-white' : 'text-orange-300'}`} onClick={() => handleSetActiveTab('/ventas')}>
                             <RiFileList3Fill className='text-2xl' />
                         </Link>
                     </li>
-                    <li className={`bg-gray-100 p-4 mb-2 rounded-tl-xl rounded-bl-xl group transition-colors ${activeTab === '/clientes' ? 'bg-purple-400' : ''}`}>
-                        <Link to='/clientes' className={`group-hover:bg-purple-400 p-4 flex justify-center rounded-xl group-hover:text-white transition-colors ${activeTab === '/clientes' ? 'text-white' : 'text-purple-400'}`} onClick={() => handleSetActiveTab('/clientes')}>
+                    <li className={`bg-gray-100 p-4 mb-2 rounded-tl-xl rounded-bl-xl group transition-colors ${activeTab === '/clientes' ? 'bg-orange-400' : ''}`}>
+                        <Link to='/clientes' className={`group-hover:bg-yellow-400 p-4 flex justify-center rounded-xl group-hover:text-white transition-colors ${activeTab === '/clientes' ? 'text-white' : 'text-orange-300'}`} onClick={() => handleSetActiveTab('/clientes')}>
                             <RiContactsBook2Fill className='text-2xl' />
                         </Link>
                     </li>
-                    <li className={`bg-gray-100 p-4 mb-2 rounded-tl-xl rounded-bl-xl group transition-colors ${activeTab === '/historialpedidos' ? 'bg-purple-400' : ''}`}>
-                        <Link to='/historialpedidos' className={`group-hover:bg-purple-400 p-4 flex justify-center rounded-xl group-hover:text-white transition-colors ${activeTab === '/historialpedidos' ? 'text-white' : 'text-purple-400'}`} onClick={() => handleSetActiveTab('/historialpedidos')}>
+                    <li className={`bg-gray-100 p-4 mb-2 rounded-tl-xl rounded-bl-xl group transition-colors ${activeTab === '/Corte-Caja' ? 'bg-orange-400' : ''}`}>
+                        <Link to='/Corte-Caja' className={`group-hover:bg-yellow-400 p-4 flex justify-center rounded-xl group-hover:text-white transition-colors ${activeTab === '/Corte-Caja' ? 'text-white' : 'text-orange-300'}`} onClick={() => handleSetActiveTab('/Corte-Caja')}>
                             <RiHistoryFill className='text-2xl' />
                         </Link>
                     </li>
@@ -59,6 +59,7 @@ const Sidebar = (props) => {
             </div>
         </div>
     );
+    
 };
 
 export default Sidebar;

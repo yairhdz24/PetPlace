@@ -18,7 +18,7 @@ const RegisterCliente = ({ isOpen, closeModal }) => {
   const handleRegistrarCliente = async () => {
     // Validar que ambos campos estén llenos
     if (!nombreCliente || !telefonoCliente) {
-      setError('Rellenar todos los campos');
+      toast.error('Rellenar todos los campos');
       return;
     }
 
@@ -75,7 +75,7 @@ const RegisterCliente = ({ isOpen, closeModal }) => {
                   placeholder="Nombre del cliente"
                   value={nombreCliente}
                   onChange={handleNombreChange}
-                  className={`block w-full px-4 py-3 text-sm text-gray-700 bg-white border ${nombreCliente === '' ? 'border-gray-200' : 'border-red-500'} rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40`}
+                  className={`block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200' rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40`}
                 />
 
                 <label htmlFor="telefono" className="mt-3 text-sm text-gray-700">
@@ -88,15 +88,19 @@ const RegisterCliente = ({ isOpen, closeModal }) => {
                   placeholder="Número telefónico"
                   value={telefonoCliente}
                   onChange={handleTelefonoChange}
-                  className={`block w-full px-4 py-3 text-sm text-gray-700 bg-white border ${telefonoCliente === '' ? 'border-gray-200' : 'border-red-500'} rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40`}
+                  className={`block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40`}
                 />
 
-                {error && (
-                  <div className="text-red-500 mt-2">
+                {/* {error && (
+                  toast.error(error)
+                  
+
+                )} */}
+                  {/* <div className="text-red-500 mt-2">
                     <span className="mr-1">⚠️</span>
                     {error}
-                  </div>
-                )}
+                  </div> */}
+                
 
                 <div className="mt-4 sm:flex sm:items-center sm:-mx-2">
                   <button
