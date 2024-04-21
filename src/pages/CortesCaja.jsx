@@ -45,6 +45,7 @@ export const CortesCaja = () => {
     setShowMenu(!showMenu);
   };
 
+  
   return (
     <div className="bg-alitas_obs_beige w-full min-h-screen">
       <Sidebar showMenu={showMenu} />
