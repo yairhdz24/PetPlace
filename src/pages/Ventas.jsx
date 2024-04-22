@@ -76,6 +76,10 @@ export const Ventas = () => {
     setShowDeleteModal(false);
   };
 
+  const ordenarVentas = (ventas) => {
+    return ventas.sort((a, b) => a.id_venta - b.id_venta);
+  };
+
   useEffect(() => {
     const fetchVentas = async () => {
       try {
@@ -84,7 +88,7 @@ export const Ventas = () => {
           console.error('Error al obtener las ventas:', error.message);
           return;
         }
-        setVentas(data);
+        setVentas(ordenarVentas(data));
       } catch (error) {
         console.error('Error al conectar con el servidor:', error);
       }
@@ -94,7 +98,7 @@ export const Ventas = () => {
   }, []);
 
   return (
-    <div className="bg-alitas_obs_beige w-full min-h-screen">
+    <div className="bg-alitas_obs_beige w-full min-h-screen font-Poppins">
       {/* Sidebar */}
       <Sidebar />
 
@@ -225,7 +229,7 @@ export const Ventas = () => {
                               id="totalventa"
                               value={editTotal}
                               onChange={(e) => setEditTotal(e.target.value)}
-                              className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                              className="mt-1 p-2 w-full bg-white border rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300"
                             />
                           </div>
                         </div>
