@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import { Fotter } from "../components/Fotter";
 import { Skeleton } from "../components/Skeleton";
 import supabase from "../../Backend/supabaseConfig";
+import { RiCloseLine, RiFileList3Fill, RiMenu3Fill } from 'react-icons/ri';
 
 // Imágenes
 
@@ -106,9 +107,26 @@ export const HomePage = () => {
     return productImage ? productImage : DefaultImage;
   };
 
+  const menu = () => {
+    setShowMenu(!showMenu);
+  };
+
   return (
+
     <div className='w-full min-h-screen bg-gradient-to-b from-[#FFEDDA] to-[#FFD580]'>
       <Sidebar showMenu={showMenu} />
+      <nav className="bg-alitas_beige lg:hidden fixed w-full bottom-0 z-50 left-0 text-3xl text-alitas_obs_red p-4 flex items-center justify-between rounded-tl-xl rounded-tr-xl">
+        <button className="p-2">
+          <RiCloseLine />
+        </button>
+        <button onClick={menu} className="p-2">
+          <RiFileList3Fill />
+        </button>
+        <button onClick={menu} className="p-2">
+          {showMenu ? <RiCloseLine /> : <RiMenu3Fill />}
+        </button>
+      </nav>
+
       <Car
         showOrder={showOrder}
         setShowOrder={setShowOrder}
@@ -116,6 +134,7 @@ export const HomePage = () => {
         removeFromCart={removeFromCart}
         total={calculateTotal()}
       />
+
 
       {/* Main */}
       <main className="lg:pl-32 lg:pr-96 pb-20">
@@ -141,7 +160,7 @@ export const HomePage = () => {
                 </div>
               ))
             ) : (
-              <Skeleton/>
+              <Skeleton />
             )}
           </div>
         </div>
