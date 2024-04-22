@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import supabase from '../../Backend/supabaseConfig';
 
 
@@ -29,7 +30,8 @@ export const RegisterProducto = ({ isOpen, closeModal }) => {
   const handleRegistrarProducto = async () => {
     // Validar que todos los campos estén llenos
     if (!nombreProducto || !descripcionProducto || !precioProducto || !cantidadProducto) {
-      setError('Rellenar todos los campos');
+      toast.error('Error al registrar el producto');
+
       return;
     }
 
@@ -87,7 +89,7 @@ export const RegisterProducto = ({ isOpen, closeModal }) => {
                   placeholder="Nombre del producto"
                   value={nombreProducto}
                   onChange={handleNombreChange}
-                  className={`block w-full px-4 py-3 text-sm text-gray-700 bg-white border ${nombreProducto === '' ? 'border-gray-200' : 'border-red-500'} rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40`}
+                  className={`block w-full px-4 py-3 text-sm text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40`}
                 />
 
                 <label htmlFor="descripcionProducto" className="mt-3 text-sm text-gray-900">
@@ -99,7 +101,7 @@ export const RegisterProducto = ({ isOpen, closeModal }) => {
                   placeholder="Descripción del producto"
                   value={descripcionProducto}
                   onChange={handleDescripcionChange}
-                  className={`block w-full px-4 py-3 text-sm text-gray-700 bg-white border ${descripcionProducto === '' ? 'border-gray-200' : 'border-red-500'} rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40`}
+                  className={`block w-full px-4 py-3 text-sm text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40`}
                 />
 
                 <label htmlFor="precioProducto" className="mt-3 text-sm text-gray-900">
@@ -112,7 +114,7 @@ export const RegisterProducto = ({ isOpen, closeModal }) => {
                   placeholder="Precio del producto"
                   value={precioProducto}
                   onChange={handlePrecioChange}
-                  className={`block w-full px-4 py-3 text-sm text-gray-700 bg-white border ${precioProducto === '' ? 'border-gray-200' : 'border-red-500'} rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40`}
+                  className={`block w-full px-4 py-3 text-sm text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40`}
                 />
 
                 <label htmlFor="cantidadProducto" className="mt-3 text-sm text-gray-900">
@@ -125,15 +127,8 @@ export const RegisterProducto = ({ isOpen, closeModal }) => {
                   placeholder="Cantidad del producto"
                   value={cantidadProducto}
                   onChange={handleCantidadChange}
-                  className={`block w-full px-4 py-3 text-sm text-gray-700 bg-white border ${cantidadProducto === '' ? 'border-gray-200' : 'border-red-500'} rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40`}
+                  className={`block w-full px-4 py-3 text-sm text-gray-700 bg-white border rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40`}
                 />
-
-                {error && (
-                  <div className="text-red-500 mt-2">
-                    <span className="mr-1">⚠️</span>
-                    {error}
-                  </div>
-                )}
 
                 <div className="mt-4 sm:flex sm:items-center sm:-mx-2">
                   <button
