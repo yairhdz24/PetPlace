@@ -50,14 +50,14 @@ const Sidebar = (props) => {
                             <RiUserFill className='text-2xl' />
                         </Link>
                     </li>
-                    <li className={`bg-gray-100 p-4 mb-2 rounded-tl-xl rounded-bl-xl group transition-colors ${activeTab === '/Corte-Caja' ? 'bg-orange-400' : ''}`}>
-                        <Link to='/Corte-Caja' className={`group-hover:bg-yellow-400 p-4 flex justify-center rounded-xl group-hover:text-white transition-colors ${activeTab === '/Corte-Caja' ? 'text-white' : 'text-orange-300'}`} onClick={() => handleSetActiveTab('/Corte-Caja')}>
-                            <RiFileList3Fill className='text-2xl' />
-                        </Link>
-                    </li>
                     <li className={`bg-gray-100 p-4 mb-2 rounded-tl-xl rounded-bl-xl group transition-colors ${activeTab === '/Inventario' ? 'bg-orange-400' : ''}`}>
                         <Link to='/Inventario' className={`group-hover:bg-yellow-400 p-4 flex justify-center rounded-xl group-hover:text-white transition-colors ${activeTab === '/Inventario' ? 'text-white' : 'text-orange-300'}`} onClick={() => handleSetActiveTab('/Inventario')}>
                             <RiStore2Fill className='text-2xl' />
+                        </Link>
+                    </li>
+                    <li className={`bg-gray-100 p-4 mb-2 rounded-tl-xl rounded-bl-xl group transition-colors ${activeTab === '/Corte-Caja' ? 'bg-orange-400' : ''}`}>
+                        <Link to='/Corte-Caja' className={`group-hover:bg-yellow-400 p-4 flex justify-center rounded-xl group-hover:text-white transition-colors ${activeTab === '/Corte-Caja' ? 'text-white' : 'text-orange-300'}`} onClick={() => handleSetActiveTab('/Corte-Caja')}>
+                            <RiFileList3Fill className='text-2xl' />
                         </Link>
                     </li>
                 </ul>
