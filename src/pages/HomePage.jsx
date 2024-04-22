@@ -19,6 +19,8 @@ import Correa_Perro from '../images/CorreaPerro.jpeg';
 import Rascador_Gato from '../images/RascadorGato.jpeg';//Hola2
 import Cama_Perro from '../images/CamaPerro.jpeg'; //Hola
 import Cama_Gato from '../images/CamaGato.jpg';
+import DefaultImage from '../images/CamaGato.jpg';
+
 
 export const HomePage = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -30,6 +32,7 @@ export const HomePage = () => {
 
   // Define el objeto de mapeo para las imágenes utilizando la ID del producto
   const imageMapping = {
+    0: DefaultImage,
     1: Perro_Comida,
     2: Gato_Comida,
     3: Juguete_Perro,
