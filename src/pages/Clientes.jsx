@@ -10,9 +10,7 @@ import {
   RiDeleteBin6Fill,
 } from 'react-icons/ri';
 
-
 import supabase from "../../Backend/supabaseConfig";
-
 
 export const Clientes = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -27,11 +25,10 @@ export const Clientes = () => {
     setShowDeleteModal(true);
   };
 
-  //funcion para ordenar los clientes
-  const OrdenarClientes = (clientes) => {
+  // Función para ordenar los clientes
+  const ordenarClientes = (clientes) => {
     return clientes.sort((a, b) => a.id_cliente - b.id_cliente);
   };
-
 
   useEffect(() => {
     const fetchClientes = async () => {
@@ -40,7 +37,7 @@ export const Clientes = () => {
         if (error) {
           throw error;
         }
-        setClientes(OrdenarClientes(data));
+        setClientes(ordenarClientes(data));
       } catch (error) {
         console.error("Error al obtener la lista de clientes", error);
       }
@@ -85,7 +82,6 @@ export const Clientes = () => {
     setShowDeleteModal(false);
   };
 
-
   const handleGuardarCambios = async () => {
     try {
       // Actualizar cliente en Supabase
@@ -117,12 +113,9 @@ export const Clientes = () => {
       <Sidebar showMenu={showMenu} />
 
       {/* NAV de móvil */}
-      <nav className="bg-alitas_beige lg:hidden fixed w-full bottom-0 left-0 text-3xl text-alitas_obs_red p-4 flex items-center justify-between rounded-tl-xl rounded-tr-xl">
+      <nav className={`bg-alitas_beige lg:hidden fixed w-full bottom-0 z-50 left-0 text-3xl text-alitas_obs_red p-4 flex items-center justify-between rounded-tl-xl rounded-tr-xl ${showMenu ? 'hidden' : ''}`}>
         <button className="p-2">
           <RiCloseLine />
-        </button>
-        <button className="p-2">
-          <RiAddFill />
         </button>
         <button onClick={menu} className="p-2">
           <RiFileList3Fill />
@@ -133,10 +126,10 @@ export const Clientes = () => {
       </nav>
 
       {/* Main */}
-      <main className="lg:pl-32 lg:pr-96 pb-20">
+      <main className="lg:pl-32 lg:pr-96 pb-20 font-Poppins">
         <div className="md:p-8 p-4">
-          <h1 className="lg:text-3xl text-2xl text-alitas_red font-Lilita_One uppercase"> CLIENTES </h1>
-          <p className="lg:text-xl text-sm text-alitas_obs_red uppercase">Pet Place</p>
+          <h1 className="lg:text-3xl text-2xl pb-5 text-alitas_red font-Lilita_One uppercase"> CLIENTES </h1>
+          {/* <p className="lg:text-xl text-sm text-alitas_obs_red uppercase">Pet Place</p> */}
 
           {/* Tabla de clientes */}
           <table className="min-w-full bg-white border border-gray-300 shadow-md rounded-md overflow-hidden">
@@ -298,4 +291,3 @@ export const Clientes = () => {
     </div>
   );
 };
-

@@ -2,20 +2,13 @@ import React, { useState, useEffect } from "react";
 import Sidebar from '../components/Sidebar';
 import { RiCloseLine, RiFileList3Fill, RiMenu3Fill } from 'react-icons/ri';
 import supabase from "../../Backend/supabaseConfig";
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 export const CortesCaja = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [ventas, setVentas] = useState([]);
   const [totalVentas, setTotalVentas] = useState(0);
-
-  const handleGenerarCorte = async () => {
-    try {
-      // Aquí puedes implementar la lógica para generar el corte de caja
-      console.log("Generando corte de caja...");
-    } catch (error) {
-      console.error("Error al generar el corte de caja:", error);
-    }
-  };
 
   useEffect(() => {
     const fetchVentas = async () => {
@@ -29,7 +22,7 @@ export const CortesCaja = () => {
           return;
         }
         setVentas(data);
-        
+
         // Calcular el total de ventas del día
         const total = data.reduce((acc, venta) => acc + venta.totalventa, 0);
         setTotalVentas(total);
@@ -45,8 +38,55 @@ export const CortesCaja = () => {
     setShowMenu(!showMenu);
   };
 
+  const handleGenerarCorte = () => {
+    // Crear un nuevo objeto PDF
+    const doc = new jsPDF();
+
+    // Agregar imagen como logo
+    const logoImg = new Image();
+    logoImg.src = './src/icons/logo.png';
+    doc.addImage(logoImg, 'JPEG', 10, 10, 40, 30);
+
+    // Establecer el título del corte de caja
+    const fechaActual = new Date();
+    const titulo = `Corte de Caja Pet Place - ${fechaActual.toLocaleDateString()}`;
+    doc.setFontSize(24); // Tamaño de fuente más grande
+    // doc.setFont("bold"); // Establecer la fuente en negrita
+    doc.setTextColor(0, 0, 0); // Color rojo intenso (RGB)
+    doc.text(titulo, 60, 30); // Ajusta las coordenadas según sea necesario
+
+    // Agregar tabla de ventas
+    doc.autoTable({
+      startY: 50, // Ajusta la posición vertical de la tabla
+      head: [['ID Venta', 'Fecha y Hora', 'Total']],
+      body: ventas.map(venta => [venta.id_venta, new Date(venta.fechahora).toLocaleString(), `$${venta.totalventa.toFixed(2)}`])
+    });
+
+    // Agregar resumen de ventas
+    doc.autoTable({
+      startY: doc.lastAutoTable.finalY + 10,
+      head: [['Descripción', 'Valor']],
+      body: [
+        ['Cantidad de ventas', ventas.length],
+        ['Monto promedio por venta', `$${ventas.length > 0 ? (totalVentas / ventas.length).toFixed(2) : "0.00"}`],
+        ['Total', `$${totalVentas.toFixed(2)}`]
+      ]
+    });
+
+    // Agregar pie de página
+    const piePagina = `
+      By: Yair Hernandez, Yezael Gomez, Judith Villalvazo
+    `;
+    doc.setFontSize(10); // Tamaño de fuente más pequeño para el pie de página
+    doc.text(piePagina, 10, doc.internal.pageSize.height - 10);
+
+    // Descargar el PDF con el nombre personalizado
+    const nombreArchivo = `Corte Caja ${fechaActual.toLocaleDateString()}.pdf`;
+    doc.save(nombreArchivo);
+};
+
   return (
-    <div className="bg-alitas_obs_beige w-full min-h-screen">
+    <div className="w-full min-h-screen bg-gradient-to-b from-[#FFEDDA] to-[#FFD580]">
       <Sidebar showMenu={showMenu} />
       <nav className="bg-alitas_beige lg:hidden fixed w-full bottom-0 left-0 text-3xl text-alitas_obs_red p-4 flex items-center justify-between rounded-tl-xl rounded-tr-xl">
         <button className="p-2">
@@ -60,72 +100,83 @@ export const CortesCaja = () => {
         </button>
       </nav>
 
-      <main className="lg:pl-32 lg:pr-96 pb-20 ">
-        <div className="md:p-8 p-4">
-          <section className="container px-4 mx-auto">
-            <div className="flex flex-col">
+      <main className="lg:pl-32 lg:pr-96 pb-20 font-Poppins ">
+        <div className="md:p-8 p-4 " >
+          <section className="container px-4 mx-auto ">
+            <div className="flex flex-col ">
               <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                  <div className="overflow-hidden md:rounded-lg">
-                    <h1 className="lg:text-3xl text-2xl text-alitas_red font-Lilita_One uppercase"> Corte De Caja </h1>
-                    <div className="flex flex-col gap-4 p-4 lg:gap-8 lg:p-6 bg-gradient-to-b from-[#FFD580] to-[#FFEDDA]">
+                  <h1 className="lg:text-3xl text-2xl text-alitas_red font-Lilita_One uppercase pb-5"> Corte De Caja </h1>
+                  <div className="overflow-hidden rounded-lg">
+                    <div className="flex flex-col gap-4 p-4 lg:gap-8 lg:p-6 bg-white">
+
                       <div className="grid gap-2">
-                        <h1 className="font-semibold text-2xl">Corte de caja</h1>
-                        <p className="text-gray-500 dark:text-gray-400">
-                          Tienda de mascotas "Amigos peludos"
-                        </p>
-                      </div>
-                      <div className="grid gap-4">
                         <div className="grid gap-1">
                           <div>Vendedor:</div>
-                          <div className="font-semibold">Juan Pérez</div>
+                          <div className="font-semibold">Admninistrador</div>
                         </div>
                         <div className="grid gap-1">
                           <div>Fecha:</div>
                           <div className="font-semibold">{new Date().toLocaleDateString()}</div>
                         </div>
                       </div>
-                      <div className="bg-white rounded-md shadow-md p-4">
-                        <div className="text-xl font-semibold">Ventas del día</div>
-                        <table className="min-w-full divide-y divide-gray-200">
-                          <thead className="bg-gray-50">
+                      <div className="text-xl font-semibold">Ventas del día</div>
+                      <div className="bg-white rounded-md shadow-md">
+                        <table className="min-w-full bg-white border border-gray-300 shadow-md rounded-md overflow-hidden">
+                          <thead className="bg-alitas_beige">
                             <tr>
-                              <th>ID Venta</th>
-                              <th>Fecha y Hora</th>
-                              <th>Total</th>
+                              <th className="py-2 px-4 border-b text-left text-alitas_obs_red uppercase">ID Venta</th>
+                              <th className="py-2 px-4 border-b text-left text-alitas_obs_red uppercase">Fecha y Hora</th>
+                              <th className="py-2 px-4 border-b text-left text-alitas_obs_red uppercase">Total</th>
                             </tr>
                           </thead>
-                          <tbody className="bg-white divide-y divide-gray-200">
+                          <tbody>
                             {ventas.map((venta) => (
-                              <tr key={venta.id_venta}>
-                                <td>{venta.id_venta}</td>
-                                <td>{new Date(venta.fechahora).toLocaleString()}</td>
-                                <td>${venta.totalventa.toFixed(2)}</td>
+                              <tr key={venta.id_venta} className="border-b">
+                                <td className="px-10 py-4 whitespace-nowrap">#{venta.id_venta}</td>
+                                <td className="px-4 py-4 whitespace-nowrap">{new Date(venta.fechahora).toLocaleString()}</td>
+                                <td className="px-4 py-4 whitespace-nowrap">${venta.totalventa.toFixed(2)}</td>
                               </tr>
                             ))}
                           </tbody>
                         </table>
                       </div>
-                      <div className="bg-white rounded-md shadow-md p-4">
-                        <div className="text-xl font-semibold">Resumen de ventas</div>
-                        <div className="flex items-center gap-4">
-                          <div className="grid gap-1">
-                            <div>Ventas del día</div>
-                            <div className="text-3xl font-bold">${totalVentas.toFixed(2)}</div>
-                          </div>
-                          {/* Otros elementos del resumen */}
-                        </div>
-                      </div>
-                      {/* Agregar sección de gastos si es necesario */}
-                      <div className="flex gap-4">
-                        <button
-                          onClick={handleGenerarCorte}
-                          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-3 rounded-md"
-                        >
-                          Generar corte de caja
-                        </button>
-                      </div>
+
+
+                      <div className="text-xl font-semibold">Resumen de ventas</div>
+                      <table className="min-w-full bg-white border border-gray-300 shadow-md rounded-md overflow-hidden">
+                        <thead className="bg-alitas_beige">
+                          <tr>
+                            <th className="py-2 px-4 border-b text-left text-alitas_obs_red uppercase">Descripción</th>
+                            <th className="py-2 px-4 border-b text-left text-alitas_obs_red uppercase">Valor</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="px-4 py-4 whitespace-nowrap text-xl">Cantidad de ventas</td>
+                            <td className="px-4 py-4 whitespace-nowrap font-bold text-xl">{ventas.length}</td>
+                          </tr>
+                          <tr>
+                            <td className="px-4 py-4 whitespace-nowrap text-xl">Monto promedio por venta</td>
+                            <td className="px-4 py-4 whitespace-nowrap font-bold text-xl">
+                              ${ventas.length > 0 ? (totalVentas / ventas.length).toFixed(2) : "0.00"}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="px-4 py-4 whitespace-nowrap font-bold text-2xl">Total</td>
+                            <td className="px-4 py-4 whitespace-nowrap font-bold text-xl">${totalVentas.toFixed(2)}</td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
+                  </div>
+                  <div className="flex gap-4 pt-5">
+                    <button
+                      onClick={handleGenerarCorte}
+                      className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-3 rounded-md"
+                    >
+                      Generar reporte
+                    </button>
                   </div>
                 </div>
               </div>
@@ -136,4 +187,3 @@ export const CortesCaja = () => {
     </div>
   );
 };
-
