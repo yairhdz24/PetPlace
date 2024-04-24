@@ -18,7 +18,7 @@ export const Inventario = () => {
     try {
       const { data, error } = await supabase
         .from('productos')
-        .update({ cantidad: editCantidad })
+        .update({ cantidad: editCantidad, nombre: editNombre})
         .match({ id_producto: selectedProductoId });
       if (error) {
         console.error('Error al actualizar el producto:', error.message);
