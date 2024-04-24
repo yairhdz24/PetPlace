@@ -43,9 +43,9 @@ export const CortesCaja = () => {
     const doc = new jsPDF();
 
     // Agregar imagen como logo
-    const logoImg = new Image();
-    logoImg.src = './src/icons/logo.png';
-    doc.addImage(logoImg, 'JPEG', 10, 10, 40, 30);
+    // const logoImg = new Image();
+    // logoImg.src = './src/icons/logo.png';
+    // doc.addImage(logoImg, 'JPEG', 10, 10, 40, 30);
 
     // Establecer el título del corte de caja
     const fechaActual = new Date();
@@ -53,7 +53,7 @@ export const CortesCaja = () => {
     doc.setFontSize(24); // Tamaño de fuente más grande
     // doc.setFont("bold"); // Establecer la fuente en negrita
     doc.setTextColor(0, 0, 0); // Color rojo intenso (RGB)
-    doc.text(titulo, 60, 30); // Ajusta las coordenadas según sea necesario
+    doc.text(titulo, 30, 30); // Ajusta las coordenadas según sea necesario
 
     // Agregar tabla de ventas
     doc.autoTable({
