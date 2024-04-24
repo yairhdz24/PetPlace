@@ -75,7 +75,7 @@ export const CortesCaja = () => {
 
     // Agregar pie de página
     const piePagina = `
-      By: Yair Hernandez, Yezael Gomez, Judith Villalvazo
+      By: Yair Hernandez, Yezael Gomez, Judith Villalvazo, Abraham Mendoza
     `;
     doc.setFontSize(10); // Tamaño de fuente más pequeño para el pie de página
     doc.text(piePagina, 10, doc.internal.pageSize.height - 10);

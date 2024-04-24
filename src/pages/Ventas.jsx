@@ -129,12 +129,12 @@ export const Ventas = () => {
                             <td className="px-4 py-4 whitespace-nowrap">${venta.totalventa.toFixed(2)}</td>
                             <td className="px-4 py-4 whitespace-nowrap">
                               <div className="flex items-center">
-                                <button
+                                {/*<button
                                   onClick={() => handleEditarVenta(venta.id_venta)}
                                   className="bg-blue-500 text-white px-2 py-2 rounded-full hover:bg-blue-700"
                                 >
                                   <RiPencilFill />
-                                </button>
+                        </button>*/}
                                 <button
                                 onClick={() => {
                                   setShowDeleteModal(true);
