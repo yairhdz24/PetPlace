@@ -17,7 +17,7 @@ const Car = (props) => {
   useEffect(() => {
     const fetchClientes = async () => {
       try {
-        const {data, error} = await supabase.from('clientes').select('*');
+        const { data, error } = await supabase.from('clientes').select('*');
         if (error) {
           throw error;
         }
@@ -39,39 +39,74 @@ const Car = (props) => {
       toast.error("Seleccione un cliente antes de realizar un pedido.");
       return;
     }
-  
+
     if (cart.length === 0) {
       toast.error("Añada al menos un producto al carrito antes de realizar un pedido.");
       return;
     }
-  
+
     try {
-      // Calcular el total de la venta
-      const totalVenta = Number(internalTotal.toFixed(2));
-  
-      const { data: nuevaVenta, error } = await supabase.from('ventas').insert([
+      // Verificar el stock de cada producto en el carrito
+      for (const product of cart) {
+        const { data: productData, error: productError } = await supabase
+          .from('productos')
+          .select('cantidad')
+          .eq('id_producto', product.id)
+          .single();
+
+        if (productError) {
+          toast.error("Error al verificar el stock del producto. Inténtelo de nuevo.");
+          console.error("Error al verificar el stock del producto", productError);
+          return;
+        }
+
+        if (!productData || productData.cantidad < product.quantity) {
+          toast.error(`El producto "${product.description}" no está disponible en suficiente cantidad.`);
+          return;
+        }
+      }
+
+      // Continuar con el proceso de realizar el pedido
+      const totalVenta = cart.reduce((acc, product) => acc + product.price * product.quantity, 0);
+
+      // Insertar venta en la tabla de ventas
+      const { data: nuevaVenta, error: ventaError } = await supabase.from('ventas').insert([
         {
           id_cliente: selectedClienteId,
-          fechahora: new Date().toISOString(), // nmms una hora para que el error estuviera en esta mmmda
+          fechahora: new Date().toISOString(),
           totalventa: totalVenta,
         }
       ]);
-  
-      if (error) {
+
+      if (ventaError) {
         toast.error("Error al crear la venta. Inténtelo de nuevo.");
-        console.error("Error al realizar la venta", error);
+        console.error("Error al realizar la venta", ventaError);
         return;
       }
-  
+
+      // Actualizar el inventario
+      for (const product of cart) {
+        const { data: inventoryData, error: inventoryError } = await supabase
+          .rpc('increment_product_quantity', {
+            id: product.id,
+            quantity: product.quantity
+          });
+
+        if (inventoryError) {
+          console.error("Error al actualizar el inventario", inventoryError);
+          return;
+        }
+      }
+
       // Actualizar el número de orden
       setNumeroOrden((prevNumeroOrden) => prevNumeroOrden + 1);
       toast.success("Pedido creado exitosamente. ¡Gracias por su compra!");
-      // console.log("Pedido realizado exitosamente");
     } catch (error) {
       toast.error("Error al realizar el pedido. Verifique su conexión.");
-      // console.error("Error al realizar el pedido", error);
+      console.error("Error al realizar el pedido", error);
     }
   };
+
 
   return (
     <>
@@ -125,14 +160,14 @@ const Car = (props) => {
 
           </form>
           <div>
-          <div>
-            <div className="grid grid-cols-5 mb-4 p-4 font-Poppins">
-              <h5 className="col-span-3 text-lg text-orange-400">Producto</h5>
-              <h5 className=" text-lg text-orange-400">Cant</h5>
-              <h5 className=" text-lg text-orange-400">Precio</h5>
-              
+            <div>
+              <div className="grid grid-cols-5 mb-4 p-4 font-Poppins">
+                <h5 className="col-span-3 text-lg text-orange-400">Producto</h5>
+                <h5 className=" text-lg text-orange-400">Cant</h5>
+                <h5 className=" text-lg text-orange-400">Precio</h5>
+
+              </div>
             </div>
-          </div>
 
             <div className="h-[400px] md:h-[800px] lg:h-[540px] overflow-y-scroll ">
               {cart.map((product) => (
@@ -146,7 +181,7 @@ const Car = (props) => {
                       </div>
                     </div>
                     <div className="text-center ">
-                      <span>{product.quantity}</span>
+
                     </div>
                     <div className="font-Poppins font-bold">
                       <span>${(product.price * product.quantity).toFixed(2)}</span>
@@ -159,7 +194,7 @@ const Car = (props) => {
                         onClick={() => removeFromCart(product.id)}
                         className="border border-orange-400 p-2 rounded-lg hover:bg-orange-400 hover:text-white transition-all"
                       >
-                        <RiDeleteBin6Fill className="text-orange-400 hover:text-white text-lg"/>
+                        <RiDeleteBin6Fill className="text-orange-400 hover:text-white text-lg" />
                       </button>
                     </div>
                   </div>
