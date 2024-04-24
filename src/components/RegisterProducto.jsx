@@ -50,10 +50,9 @@ export const RegisterProducto = ({ isOpen, closeModal }) => {
       else {
         closeModal();
         toast.success('Producto registrado exitosamente.');
-        setTimeout(() => {
+       
           window.location.reload();
-        }, 2000);
-      }
+        }
     } catch (error) {
       toast.error('Error de red al registrar nuevo producto', error);
     }

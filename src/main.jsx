@@ -6,8 +6,8 @@ import { HomePage } from './pages/HomePage';
 import { Ventas }  from './pages/Ventas';
 import { Clientes } from './pages/Clientes';
 import { CortesCaja } from './pages/CortesCaja';
-import './index.css';
 import { Inventario } from './pages/Inventario';
+import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
